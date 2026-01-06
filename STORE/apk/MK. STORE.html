@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMINE MK STORE | متجر التطبيقات</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #ff3d00;
+            --primary-glow: rgba(255, 61, 0, 0.4);
+            --bg-dark: #080808;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-hover: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-main: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background: linear-gradient(-45deg, #050505, #121212, #0a0a0a, #000000);
+            background-size: 400% 400%;
+            animation: bgAnimation 12s ease infinite;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            font-weight: 800;
+            background: linear-gradient(to left, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* البحث */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input-wrapper {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .search-input-wrapper.active {
+            max-width: 250px;
+            opacity: 1;
+        }
+
+        .search-input-wrapper input {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            outline: none;
+        }
+
+        .icon-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:focus, .icon-btn:hover {
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: scale(1.1);
+        }
+
+        /* قائمة التطبيقات */
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .app-card {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px 20px 20px 50px;
+            padding: 12px;
+            text-decoration: none;
+            color: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:focus, .app-card:hover {
+            background: var(--card-hover);
+            border-color: var(--primary);
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* الصورة الدائرية */
+        .app-img-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid var(--border-color);
+            background: #111;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-info {
+            flex-grow: 1;
+        }
+
+        .app-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.3rem;
+        }
+
+        .app-info p {
+            margin: 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .btn-install {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-right: 15px;
+        }
+
+        /* رسالة "لا يوجد تطبيق" */
+        #noResults {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            border: 1px dashed var(--border-color);
+            display: none; /* مخفية افتراضياً */
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #noResults i {
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--primary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-reset:hover {
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* المطور */
+        .developer-card {
+            margin-top: 80px;
+            background: linear-gradient(180deg, rgba(255,61,0,0.05), transparent);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .dev-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin: -90px auto 15px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .dev-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        footer {
+            padding: 40px;
+            color: #555;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>AHMED  MK STORE</h1>
+            </div>
+            <div class="search-container">
+                <div class="search-input-wrapper" id="searchWrapper">
+                    <input type="text" id="searchInput" placeholder="ابحث عن تطبيقك...">
+                </div>
+                <button class="icon-btn" id="searchToggle" title="بحث">
+                    <i data-lucide="search"></i>
+                </button>
+            </div>
+        </header>
+
+        <main id="appContainer" class="app-list">
+            <!-- تطبيق 1 -->
+            <a href="#" class="app-card">
+                <div class="app-img-container">
+                    <img src="logo/yacine.webp" 
+                         alt="Yacine TV" 
+                         onerror="this.src='https://w7.pngwing.com/pngs/833/979/png-transparent-male-lion-in-watercolor-wildness-portrait.png'">
+                </div>
+                <div class="app-info">
+                    <h3>Spotify TV v3</h3>
+                    <p>أفضل تطبيق لمتابعة المباريات والقنوات الرياضية.</p>
+                </div>
+                <div class="btn-install">تثبيت</div>
+            </a>
+            <!-- تطبيق 1 -->
+            <a href="#" class="app-card">
+                <div class="app-img-container">
+                    <img src="https://w7.pngwing.com/pngs/4/438/png-transparent-spotify-logo-spotify-mobile-app-computer-icons-app-store-music-free-icon-spotify-miscellaneous-logo-music-download.png" 
+                         alt="Yacine TV" 
+                         onerror="this.src='https://w7.pngwing.com/pngs/833/979/png-transparent-male-lion-in-watercolor-wildness-portrait.png'">
+                </div>
+                <div class="app-info">
+                    <h3>Yacine TV v3</h3>
+                    <p>أفضل تطبيق لمتابعة المباريات والقنوات الرياضية.</p>
+                </div>
+                <div class="btn-install">تثبيت</div>
+            </a>
+
+            <!-- تطبيق 2 -->
+            <a href="#" class="app-card">
+                <div class="app-img-container">
+                    <img src="https://error-link.com/img.png" 
+                         alt="SmartTube" 
+                         onerror="this.src='https://w7.pngwing.com/pngs/833/979/png-transparent-male-lion-in-watercolor-wildness-portrait.png'">
+                </div>
+                <div class="app-info">
+                    <h3>SmartTube Next</h3>
+                    <p>مشغل يوتيوب بدون إعلانات مخصص لشاشات الأندرويد.</p>
+                </div>
+                <div class="btn-install">تثبيت</div>
+            </a>
+
+            <!-- تطبيق 3 -->
+            <a href="#" class="app-card">
+                <div class="app-img-container">
+                    <img src="https://cinemahd.app/wp-content/uploads/2020/05/cinema-hd-logo.png" 
+                         alt="Cinema HD" 
+                         onerror="this.src='https://w7.pngwing.com/pngs/833/979/png-transparent-male-lion-in-watercolor-wildness-portrait.png'">
+                </div>
+                <div class="app-info">
+                    <h3>Cinema HD</h3>
+                    <p>مكتبة ضخمة من الأفلام والمسلسلات بجودة 4K.</p>
+                </div>
+                <div class="btn-install">تثبيت</div>
+            </a>
+        </main>
+
+        <!-- رسالة عند عدم وجود نتائج -->
+        <div id="noResults">
+            <i data-lucide="search-x"></i>
+            <div>
+                <h2 style="margin:0;">عذراً، لا يوجد هذا التطبيق</h2>
+                <p style="color:var(--text-dim);">تأكد من كتابة الاسم بشكل صحيح أو ابحث عن تطبيق آخر.</p>
+            </div>
+            <button class="btn-reset" onclick="resetSearch()">الرجوع للرئيسية</button>
+        </div>
+
+        <section class="developer-card">
+            <div class="dev-img">
+                <img src="https://w7.pngwing.com/pngs/747/118/png-transparent-lion-logo-roar-lions-lion-y-white-mammal-face.png" 
+                     onerror="this.src='https://via.placeholder.com/150/111/fff?text=MK'">
+            </div>
+            <h2 style="margin:0;">AHMED AMINE MK</h2>
+            <p style="color:var(--primary); font-weight:bold; font-size:0.8rem; margin:5px 0 15px;">DEVELOPER & DESIGNER</p>
+          <p style="max-width:500px; margin:0 auto; color:var(--text-dim);">
+                نعمل على توفير أفضل تجربة ترفيهية لمستخدمي أجهزة الأندرويد تيفي في الوطن العربي.
+            </p>
+                        <br>
+
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <button class="icon-btn"><i data-lucide="youtube"></i></button>
+                <button class="icon-btn"><i data-lucide="twitter"></i></button>
+                <button class="icon-btn"><i data-lucide="github"></i></button>
+                <button class="icon-btn"><i data-lucide="facebook"></i></button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        تصميم حصري - جميع الحقوق محفوظة لمتجر AMINE MK 2026
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const searchToggle = document.getElementById('searchToggle');
+        const searchWrapper = document.getElementById('searchWrapper');
+        const searchInput = document.getElementById('searchInput');
+        const appContainer = document.getElementById('appContainer');
+        const cards = document.querySelectorAll('.app-card');
+        const noResults = document.getElementById('noResults');
+
+        // تبديل ظهور مربع البحث
+        searchToggle.addEventListener('click', () => {
+            searchWrapper.classList.toggle('active');
+            if(searchWrapper.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        // منطق البحث والرسالة البديلة
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            let hasResults = false;
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('p').innerText.toLowerCase();
+                
+                if (title.includes(term) || desc.includes(term)) {
+                    card.style.display = 'flex';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // إظهار أو إخفاء رسالة "لا يوجد نتائج"
+            if (hasResults) {
+                noResults.style.display = 'none';
+                appContainer.style.display = 'flex';
+            } else {
+                noResults.style.display = 'flex';
+                appContainer.style.display = 'none';
+            }
+        });
+
+        // وظيفة زر الرجوع للرئيسية
+        function resetSearch() {
+            searchInput.value = '';
+            cards.forEach(card => card.style.display = 'flex');
+            noResults.style.display = 'none';
+            appContainer.style.display = 'flex';
+            searchWrapper.classList.remove('active');
+            if(cards[0]) cards[0].focus();
+        }
+
+        // تحكم الريموت
+        document.addEventListener('keydown', (e) => {
+            const focusable = Array.from(document.querySelectorAll('.app-card:not([style*="display: none"]), button, input'));
+            const index = focusable.indexOf(document.activeElement);
+
+            if (e.key === 'ArrowDown') {
+                if (index < focusable.length - 1) focusable[index + 1].focus();
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                if (index > 0) focusable[index - 1].focus();
+                e.preventDefault();
+            }
+        });
+
+        window.onload = () => { if(cards[0]) cards[0].focus(); };
+    </script>
+</body>
+</html>
