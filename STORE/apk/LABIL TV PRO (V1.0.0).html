@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labil TV - القائمة الرئيسية</title>
+    <!-- External Resources -->
+    <link rel="icon" type="image/png" href="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Meta Tags for Mobile App Mode -->
+    <meta name="theme-color" content="#020617">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        /* جميع الأنماط (styles) كما هي دون تغيير */
+        :root {
+            --primary-pink: #ed1b76;
+            --gold: #FFD700;
+            --dark: #0b1424;
+            --card-bg: #0f172a;
+            --card-width: 140px;
+            --card-height: 160px;
+            --modal-bg: rgba(7, 10, 25, 0.98);
+            --focus-glow: 0 0 20px 5px rgba(237, 27, 118, 0.6);
+            --card-gap: 10px;
+            
+            --news-color: #ef4444;
+            --sports-color: #22c55e;
+            --documentary-color: #a855f7;
+            --movies-color: #ed1b76;
+            --series-color: #f59e0b;
+            --kids-color: #3b82f6;
+            --live-color: #ef4444;
+            --Ramadan-color: red;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #020617 0%, #0d1528 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+            padding-bottom: 70px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(237, 27, 118, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease;
+        }
+
+        .splash-text {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #ed1b76);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); transform: scale(1); }
+            50% { filter: brightness(1.2); transform: scale(1.02); }
+        }
+
+        .loader-bar {
+            width: 220px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(45deg, #FFD700, #ed1b76);
+            transition: width 0.3s ease;
+        }
+
+        .header {
+            height: 60px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            border-bottom: 2px solid var(--primary-pink);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            font-size: 1.2rem;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: rgba(237, 27, 118, 0.2);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo span:first-child { color: var(--primary-pink); }
+        .logo span:last-child { color: white; margin-right: 5px; }
+
+        #search-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            display: none;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 2100;
+        }
+
+        #search-container.active {
+            display: flex;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: 'Tajawal';
+            font-size: 1.1rem;
+            padding: 10px;
+            outline: none;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background: rgba(11, 20, 36, 0.98);
+            z-index: 2000;
+            transition: 0.3s ease-in-out;
+            border-left: 3px solid #FFD700;
+            padding: 40px 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        .sidebar.active {
+            right: 0;
+            box-shadow: -5px 0 30px rgba(255,215,0,0.2);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .sidebar-overlay.active { display: block; }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 15px;
+            margin-bottom: 12px;
+            border-radius: 15px;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-align: right;
+        }
+
+        .sidebar-item i {
+            margin-left: 18px;
+            font-size: 1.3rem;
+            color: #FFD700;
+            width: 25px;
+            text-align: center;
+        }
+
+        .sidebar-item:hover, .sidebar-item:focus {
+            background: linear-gradient(45deg, #FFD700, #FDB931);
+            color: #000;
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item:hover i, .sidebar-item:focus i { color: #000; }
+
+        .page-header {
+            margin-top: 70px;
+            margin-bottom: 10px;
+            padding: 10px 4%;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .page-title i { color: var(--primary-pink); }
+        .page-subtitle { color: #94a3b8; margin-top: 5px; font-size: 1rem; }
+
+        .content-grid {
+            padding: 5px 4% 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+            gap: var(--card-gap);
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-pink);
+            box-shadow: 0 8px 25px rgba(237, 27, 118, 0.2);
+        }
+
+        .poster-box {
+            position: relative;
+            width: 100%;
+            height: var(--card-height);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            overflow: hidden;
+        }
+
+        .poster-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .poster-box img { transform: scale(1.1); }
+
+        .badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-size: 0.55rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 10;
+        }
+
+        .badge.news { background: var(--news-color); }
+        .badge.sports { background: var(--sports-color); }
+        .badge.documentary { background: var(--documentary-color); }
+        .badge.movies { background: var(--movies-color); }
+        .badge.series { background: var(--series-color); }
+        .badge.kids { background: var(--kids-color); }
+        .badge.Ramadan { background: var(--Ramadan-color); }
+        .badge.live { background: var(--live-color); animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .card-meta {
+            padding: 6px 4px;
+            background: var(--card-bg);
+            text-align: center;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 2px solid rgba(255,215,0,0.3);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #FFD700;
+            background: rgba(255,215,0,0.1);
+        }
+
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background: var(--modal-bg);
+            padding: 35px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: popIn 0.4s ease;
+            border: 3px solid #33a08c;
+        }
+
+        .construction-content { border-color: #FF9800; }
+        .exit-content { border-color: #FFD700; }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Tajawal';
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .btn-warning { background: #FF9800; color: white; }
+        .btn-confirm { background: var(--primary-pink); color: white; }
+        .btn-cancel { background: #3d4b63; color: white; }
+
+        .language-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid transparent;
+            color: white;
+            font-family: 'Tajawal';
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .language-btn.active {
+            border-color: var(--primary-pink);
+            background: rgba(237, 27, 118, 0.1);
+        }
+
+        .language-btn img { width: 25px; height: 18px; margin-left: 15px; }
+
+        #toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-pink);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            z-index: 5000;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .no-results {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .no-results i { font-size: 4rem; color: rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 5px 3% 20px;
+            }
+            :root { --card-width: 120px; --card-height: 140px; }
+            .card-title { font-size: 0.7rem; }
+        }
+
+        html[lang="en"] { direction: ltr; }
+        html[lang="en"] .badge { right: auto; left: 6px; }
+        html[lang="en"] .sidebar { right: auto; left: -320px; }
+        html[lang="en"] .sidebar.active { left: 0; }
+        html[lang="en"] .sidebar-item { text-align: left; }
+        html[lang="en"] .sidebar-item i { margin-left: 0; margin-right: 18px; }
+        html[lang="en"] .language-btn img { margin-left: 0; margin-right: 15px; }
+        html[lang="en"] .logo span:last-child { margin-right: 0; margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <!-- ===== Splash Screen ===== -->
+    <div id="splash-screen">
+        <div class="splash-text">LABIL TV PRO</div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== Modals (بدون تغيير) ===== -->
+    <div class="modal-overlay" id="internet-modal">
+        <div class="modal-content construction-content">
+            <i class="fas fa-wifi" style="font-size: 4rem; color: #FF9800; margin-bottom: 20px;"></i>
+            <h2 id="no-internet-title">لا يوجد اتصال بالإنترنت</h2>
+            <p id="no-internet-msg">يرجى التحقق من اتصالك والمحاولة مرة أخرى</p>
+            <button class="btn btn-confirm" id="retry-btn">إعادة المحاولة</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="construction-modal">
+        <div class="modal-content construction-content">
+            <i class="fas fa-gears" style="font-size: 4rem; color: #FF9800; margin-bottom: 20px; animation: spin 3s infinite linear;"></i>
+            <h2 id="construction-title">قيد الإنشاء</h2>
+            <p id="construction-msg">هذا المحتوى قيد التطوير وسيكون متاحاً قريباً</p>
+            <button class="btn btn-warning" id="close-construction">حسناً</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="exit-modal">
+        <div class="modal-content exit-content">
+            <i class="fas fa-power-off" style="font-size: 3rem; color: var(--primary-pink); margin-bottom: 20px;"></i>
+            <h3 id="exit-title">هل تريد الخروج؟</h3>
+            <p id="exit-msg">نأمل رؤيتك مرة أخرى قريباً!</p>
+            <div class="modal-btns">
+                <button class="btn btn-confirm" id="confirm-exit">تأكيد</button>
+                <button class="btn btn-cancel" id="cancel-exit">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="about-modal">
+        <div class="modal-content">
+            <i class="fas fa-info-circle" style="font-size: 3rem; color: #33a08c; margin-bottom: 20px;"></i>
+            <h3 id="about-title">عن التطبيق</h3>
+            <p id="about-desc">تطبيق يوفر تجربة مشاهدة استثنائية.</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; margin: 20px 0;">
+                <p><strong id="version-label">الإصدار:</strong> 1.0.0</p>
+            </div>
+            <button class="btn btn-confirm" id="close-about">موافق</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="language-modal">
+        <div class="modal-content">
+            <i class="fas fa-language" style="font-size: 3rem; color: #33a08c; margin-bottom: 20px;"></i>
+            <h3 id="language-title">اختر اللغة</h3>
+            <div class="language-options">
+                <button class="language-btn active" data-lang="ar">
+                    <img src="https://flagcdn.com/w20/sa.png" alt="Arabic">
+                    <span>العربية</span>
+                </button>
+                <button class="language-btn" data-lang="en">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="English">
+                    <span>English</span>
+                </button>
+            </div>
+            <button class="btn btn-cancel" id="close-language">إغلاق</button>
+        </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ===== Header ===== -->
+    <header class="header">
+        <div class="header-actions">
+            <button class="icon-btn" id="menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="logo">
+            <span>LABIL</span><span>TV  PRO</span>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" id="language-btn"><i class="fas fa-language"></i></button>
+            <button class="icon-btn" id="search-btn"><i class="fas fa-search"></i></button>
+            <button class="icon-btn" id="exit-btn"><i class="fas fa-power-off"></i></button>
+        </div>
+        
+        <div id="search-container">
+            <button class="icon-btn" id="close-search"><i class="fas fa-times"></i></button>
+            <input type="text" id="search-input" placeholder="ابحث عن قناة أو فيلم...">
+            <button class="icon-btn" id="clear-search"><i class="fas fa-eraser"></i></button>
+        </div>
+    </header>
+
+    <!-- ===== Sidebar ===== -->
+    <nav class="sidebar" id="sidebar">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="width: 90px; height: 90px; border-radius: 50%; margin: 0 auto; border: 3px solid #FFD700; overflow: hidden;">
+                <img src="https://raw.githubusercontent.com/aminemk640/Movies-free/refs/heads/main/00.png" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo022.jpg'">
+            </div>
+            <h3 style="color: #FFD700; margin-top: 10px;">LABIL TV PRO</h3>
+        </div>
+        <a href="#" class="sidebar-item" id="facebook-link" target="_blank" rel="noopener"><i class="fab fa-facebook"></i><span>فيسبوك</span></a>
+        <a href="#" class="sidebar-item" id="telegram-link" target="_blank" rel="noopener"><i class="fab fa-telegram"></i><span>تلجرام</span></a>
+        <button class="sidebar-item" id="about-sidebar-btn"><i class="fas fa-info-circle"></i><span>عن التطبيق</span></button>
+        <button class="sidebar-item" id="close-sidebar" style="margin-top: 20px; background: rgba(255,255,255,0.1);"><i class="fas fa-times"></i><span>إغلاق</span></button>
+    </nav>
+
+    <!-- ===== Main Content ===== -->
+    <div class="page-header">
+        <div class="page-title">
+            <i class="fas fa-tv"></i>
+            <span id="main-menu-title">القائمة الرئيسية</span>
+        </div>
+        <div class="page-subtitle" id="main-menu-subtitle">اختر ما تريد مشاهدته</div>
+    </div>
+
+    <main>
+        <div class="content-grid" id="content-grid">
+            <!-- ✅ روابط حقيقية: بعضها يعمل وبعضها تجريبي -->
+            <div data-url="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/Ramadan-2026/Ramadan.2026.html" class="card" tabindex="0">
+                <div class="poster-box">
+                    <div class="badge Ramadan" ><span class="badge-text">Ramadan</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/Ramadan-2026.png" alt="Ramadan 2026" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">Ramadan 2026</div></div>
+            </div>
+            
+            <div class="card" data-url="https://raw.githack.com/ahmadmk2023/ramadan-2025/main/ramadan2025.html" tabindex="0">
+                <div class="poster-box">
+                    <div class="badge Ramadan" ><span class="badge-text">Ramadan</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/Ramadan-2025.png" alt="Ramadan 2025" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">Ramadan 2025</div></div>
+            </div>
+            
+            <div class="card" data-url="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/Movies%20%26%20Series%20Portal/Movies%26Series.html" tabindex="0"> <!-- رابط تجريبي -->
+                <div class="poster-box">
+                    <div class="badge movies"><span class="badge-text">أفلام</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/Moveis.png" alt="Movies" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">افلام ومسلسلات</div></div>
+            </div>
+            
+            <div class="card" data-url="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/channel-tv/News.tv.html" tabindex="0"> <!-- رابط حقيقي -->
+                <div class="poster-box">
+                    <div class="badge news"><span class="badge-text">أخبار</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/News.tv.png" alt="News" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">قنوات إخبارية</div></div>
+            </div>
+            
+            <div class="card" data-url="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/channel-tv/shahid.html" tabindex="0"> <!-- رابط حقيقي -->
+                <div class="poster-box">
+                    <div class="badge live"><span class="badge-text">مسلسلات</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/shahid-vip.webp" alt="Series" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">shahid</div></div>
+            </div>
+            
+            <div class="card" data-url="" tabindex="0"> <!-- رابط حقيقي -->
+                <div class="poster-box">
+                    <div class="badge kids"><span class="badge-text">أطفال</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/Kidz-tv.png" alt="Kids" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">قنوات أطفال</div></div>
+            </div>
+            
+            <div class="card" data-url="" tabindex="0"> <!-- رابط حقيقي -->
+                <div class="poster-box">
+                    <div class="badge documentary"><span class="badge-text">وثائقي</span></div>
+                    <img src="https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo/Doc.png" alt="Documentary" onerror="handleImageError(this)">
+                </div>
+                <div class="card-meta"><div class="card-title">قنوات وثائقية</div></div>
+            </div>
+        </div>
+
+        <div class="no-results" id="no-results" style="display: none;">
+            <i class="fas fa-search-minus"></i>
+            <h3 id="no-results-title">لا توجد نتائج!</h3>
+            <p id="no-results-msg">تأكد من كتابة الاسم بشكل صحيح</p>
+            <button class="btn btn-confirm" id="reset-search">العودة للرئيسية</button>
+        </div>
+    </main>
+
+    <!-- ===== Bottom Bar ===== -->
+    <footer class="bottom-bar">
+        <div class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span id="nav-home-text">الرئيسية</span></div>
+        <div class="nav-item" id="nav-movies"><i class="fas fa-film"></i><span id="nav-movies-text">الأفلام</span></div>
+        <div class="nav-item" id="nav-series"><i class="fas fa-tv"></i><span id="nav-series-text">المسلسلات</span></div>
+        <div class="nav-item" id="nav-live"><i class="fas fa-broadcast-tower"></i><span id="nav-live-text">مباشر</span></div>
+    </footer>
+
+    <div id="toast">مرحباً بك</div>
+
+    <script>
+        // ==================== دالة معالجة أخطاء الصور ====================
+        function handleImageError(img) {
+            if (img.src.includes('logo022.jpg')) return;
+            img.src = "https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo022.jpg";
+            img.onerror = null;
+        }
+        window.handleImageError = handleImageError;
+
+        // ==================== الترجمات ====================
+        const translations = {
+            ar: {
+                welcome: 'مرحباً بك', noInternet: 'لا يوجد اتصال بالإنترنت', retry: 'إعادة المحاولة',
+                construction: 'قيد الإنشاء', constructionMsg: 'هذا المحتوى قيد التطوير', ok: 'حسناً',
+                exitTitle: 'هل تريد الخروج؟', confirm: 'تأكيد', cancel: 'إلغاء',
+                aboutTitle: 'عن التطبيق', aboutDesc: 'تطبيق يوفر تجربة مشاهدة استثنائية.',
+                languageTitle: 'اختر اللغة', close: 'إغلاق', searchPlaceholder: 'ابحث عن قناة أو فيلم...',
+                noResults: 'لا توجد نتائج!', noResultsMsg: 'تأكد من كتابة الاسم بشكل صحيح', backToHome: 'العودة للرئيسية',
+                news: 'أخبار', sports: 'رياضة', Ramadan: 'رمضان',documentary: 'وثائقي', movies: 'أفلام',
+                series: 'مسلسلات', kids: 'أطفال', live: 'مباشر',
+                facebook: 'فيسبوك', telegram: 'تلجرام', about: 'عن التطبيق', closeMenu: 'إغلاق',
+                mainMenu: 'القائمة الرئيسية', subtitle: 'اختر ما تريد مشاهدته', home: 'الرئيسية',
+                version: 'الإصدار:'
+            },
+            en: {
+                welcome: 'Welcome', noInternet: 'No Internet Connection', retry: 'Retry',
+                construction: 'Under Construction', constructionMsg: 'Content under development', ok: 'OK',
+                exitTitle: 'Exit App?', confirm: 'Confirm', cancel: 'Cancel',
+                aboutTitle: 'About App', aboutDesc: 'App providing an exceptional viewing experience.',
+                languageTitle: 'Choose Language', close: 'Close', searchPlaceholder: 'Search channel or movie...',
+                noResults: 'No Results!', noResultsMsg: 'Check your spelling', backToHome: 'Back to Home',
+                news: 'News', sports: 'Sports', documentary: 'Doc', movies: 'Movies',
+                series: 'Series', kids: 'Kids', live: 'LIVE',Ramadan: 'Ramadan',
+                facebook: 'Facebook', telegram: 'Telegram', about: 'About', closeMenu: 'Close',
+                mainMenu: 'Main Menu', subtitle: 'Choose what to watch', home: 'Home',
+                version: 'Version:'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'ar';
+        let splashShown = sessionStorage.getItem('splashShown');
+
+        // ==================== شاشة البداية ====================
+        const splash = document.getElementById('splash-screen');
+        const progress = document.getElementById('progress-bar');
+        
+        if (!splashShown) {
+            let width = 0;
+            const interval = setInterval(() => {
+                width += Math.random() * 15;
+                if (width >= 100) {
+                    clearInterval(interval);
+                    splash.style.opacity = '0';
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                        sessionStorage.setItem('splashShown', 'true');
+                        checkConnection();
+                    }, 500);
+                }
+                progress.style.width = width + '%';
+            }, 200);
+        } else {
+            splash.style.display = 'none';
+            checkConnection();
+        }
+
+        applyLanguage(currentLang);
+
+        // ==================== التحقق من الإنترنت ====================
+        function checkConnection() {
+            if (!navigator.onLine) document.getElementById('internet-modal').classList.add('active');
+        }
+        window.addEventListener('offline', () => document.getElementById('internet-modal').classList.add('active'));
+        window.addEventListener('online', () => document.getElementById('internet-modal').classList.remove('active'));
+        document.getElementById('retry-btn').addEventListener('click', () => {
+             if (navigator.onLine) document.getElementById('internet-modal').classList.remove('active');
+        });
+
+        // ==================== شريط جانبي ====================
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        const closeSidebar = () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        };
+
+        document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        // ==================== النوافذ المنبثقة ====================
+        const modals = {
+            construction: document.getElementById('construction-modal'),
+            exit: document.getElementById('exit-modal'),
+            about: document.getElementById('about-modal'),
+            language: document.getElementById('language-modal')
+        };
+
+        const toggleModal = (id, show) => modals[id].classList[show ? 'add' : 'remove']('active');
+
+        document.getElementById('close-construction').addEventListener('click', () => toggleModal('construction', false));
+        document.getElementById('exit-btn').addEventListener('click', () => toggleModal('exit', true));
+        document.getElementById('cancel-exit').addEventListener('click', () => toggleModal('exit', false));
+        document.getElementById('confirm-exit').addEventListener('click', () => window.close()); // قد لا يعمل في المتصفح
+        
+        document.getElementById('about-sidebar-btn').addEventListener('click', () => {
+            closeSidebar();
+            toggleModal('about', true);
+        });
+        document.getElementById('close-about').addEventListener('click', () => toggleModal('about', false));
+
+        document.getElementById('language-btn').addEventListener('click', () => toggleModal('language', true));
+        document.getElementById('close-language').addEventListener('click', () => toggleModal('language', false));
+
+        // ==================== تبديل اللغة ====================
+        document.querySelectorAll('.language-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentLang = this.dataset.lang;
+                localStorage.setItem('lang', currentLang);
+                applyLanguage(currentLang);
+                document.querySelectorAll('.language-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                toggleModal('language', false);
+                showToast(translations[currentLang].welcome);
+            });
+        });
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            document.getElementById('main-menu-title').textContent = t.mainMenu;
+            document.getElementById('main-menu-subtitle').textContent = t.subtitle;
+            document.getElementById('search-input').placeholder = t.searchPlaceholder;
+            document.getElementById('no-results-title').textContent = t.noResults;
+            document.getElementById('no-results-msg').textContent = t.noResultsMsg;
+            document.getElementById('reset-search').textContent = t.backToHome;
+            document.getElementById('nav-home-text').textContent = t.home;
+            document.getElementById('nav-movies-text').textContent = t.movies;
+            document.getElementById('nav-series-text').textContent = t.series;
+            document.getElementById('nav-live-text').textContent = t.live;
+            document.getElementById('construction-title').textContent = t.construction;
+            document.getElementById('construction-msg').textContent = t.constructionMsg;
+            document.getElementById('close-construction').textContent = t.ok;
+            document.getElementById('exit-title').textContent = t.exitTitle;
+            document.getElementById('exit-msg').textContent = t.exitMsg || 'نأمل رؤيتك مرة أخرى قريباً!';
+            document.getElementById('confirm-exit').textContent = t.confirm;
+            document.getElementById('cancel-exit').textContent = t.cancel;
+            document.getElementById('about-title').textContent = t.aboutTitle;
+            document.getElementById('about-desc').textContent = t.aboutDesc;
+            document.getElementById('version-label').textContent = t.version;
+            document.getElementById('close-about').textContent = t.ok;
+            document.getElementById('language-title').textContent = t.languageTitle;
+            document.getElementById('close-language').textContent = t.close;
+            document.getElementById('no-internet-title').textContent = t.noInternet;
+            document.getElementById('no-internet-msg').textContent = t.noInternetMsg || 'يرجى التحقق من اتصالك والمحاولة مرة أخرى';
+            document.getElementById('retry-btn').textContent = t.retry;
+            
+            document.querySelectorAll('.badge .badge-text').forEach(el => {
+                const parentClass = el.closest('.badge').classList[1];
+                if (t[parentClass]) el.textContent = t[parentClass];
+            });
+
+            const sidebarItems = document.querySelectorAll('.sidebar-item span');
+            if (sidebarItems.length >= 4) {
+                sidebarItems[0].textContent = t.facebook;
+                sidebarItems[1].textContent = t.telegram;
+                sidebarItems[2].textContent = t.about;
+                sidebarItems[3].textContent = t.closeMenu;
+            }
+        }
+
+        // ==================== البحث ====================
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.card');
+        const noResultsDiv = document.getElementById('no-results');
+        const contentGrid = document.getElementById('content-grid');
+
+        document.getElementById('search-btn').addEventListener('click', () => {
+            document.getElementById('search-container').classList.add('active');
+            searchInput.focus();
+        });
+
+        document.getElementById('close-search').addEventListener('click', () => {
+            document.getElementById('search-container').classList.remove('active');
+            resetSearch();
+        });
+
+        document.getElementById('clear-search').addEventListener('click', () => {
+            searchInput.value = '';
+            resetSearch();
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            let hasResult = false;
+            
+            if (term === '') {
+                resetSearch();
+                return;
+            }
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                if (title.includes(term)) {
+                    card.style.display = 'block';
+                    hasResult = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (hasResult) {
+                noResultsDiv.style.display = 'none';
+                contentGrid.style.display = 'grid';
+            } else {
+                noResultsDiv.style.display = 'flex';
+                contentGrid.style.display = 'none';
+            }
+        });
+
+        document.getElementById('reset-search').addEventListener('click', resetSearch);
+        
+        function resetSearch() {
+            searchInput.value = '';
+            cards.forEach(c => c.style.display = 'block');
+            noResultsDiv.style.display = 'none';
+            contentGrid.style.display = 'grid';
+        }
+
+        // ==================== ✅ الجزء المُصحح: فتح الروابط عند النقر على البطاقات ====================
+        cards.forEach(card => {
+            card.addEventListener('click', function(event) {
+                // الحصول على الرابط من data-url
+                const url = this.dataset.url;
+                
+                // التحقق من أن الرابط موجود ولا يبدأ بـ '#' (روابط وهمية)
+                if (url && !url.startsWith('#')) {
+                    // فتح الرابط في نافذة جديدة (أو نفس النافذة حسب الرغبة)
+                    window.open(url, '_blank'); // استخدم '_self' إذا أردت الفتح في نفس الصفحة
+                } else {
+                    // إذا كان الرابط وهمياً أو غير موجود، نعرض نافذة "قيد الإنشاء"
+                    toggleModal('construction', true);
+                }
+            });
+        });
+
+        // ==================== شريط التنقل السفلي ====================
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                const id = this.id;
+                if (id === 'nav-home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    resetSearch();
+                } else {
+                    // محاكاة التنقل (يمكن تخصيصها لاحقاً)
+                    toggleModal('construction', true);
+                }
+            });
+        });
+
+        // ==================== دالة لعرض التوست ====================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
