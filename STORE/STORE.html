@@ -392,9 +392,29 @@
 <script>
     // ===================== DATA (محدثة مع روابط مباشرة متوافقة) =====================
     const apps = [
+    
+      { id: 1, name: "القرآن لا إعلانات", desc: "أفضل تطبيق قرآن للشاشات الذكية.", cat: "القرآن", size: "32.1 MB", rating: "4.9", icon: "logo/0.png", downloadUrl: "apk/Qran.apk" },
+      
         { id: 28, name: "LABIL TV PRO", desc: "تحتاج تثبيت مشغل Wuffy Player. بث مباشر حصري.", cat: "بث مباشر", size: "31 MB", rating: "4.8", icon: "https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo.png", downloadUrl: "https://www.appcreator24.com/app3917013-yrtpbn" },
         
         { id: 6, name: "Wuffy Player", desc: "اقرأ جميع محتوياتك السمعية والبصرية على التلفاز الذكي.", cat: "مشغل", size: "11.8 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/72f/3ee/72f3ee5a0b995f273e66789c531d570b420db5d80d1969428f9fe733bf230e84:100", downloadUrl: "apk/Wuffy. Player_3.5.7 .apk" },
+        { id: 9, name: "دراما لايف مهكر", desc: "Drama Live مهكر 2026 بدون كود", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://dramalivedl.com/wp-content/uploads/2025/11/drama-live-2.webp", downloadUrl: "https://www.mediafire.com/file/zag54wy0buvl9zg/Drama_Live_Pr.apk/file" },
+        
+        { id: 10, name: "Drama Live", desc: "كود التفعيل: fgcode.org/232425", cat: "بث مباشر", size: "22.1 MB", rating: "5.0", icon: "https://dramalivedl.com/wp-content/uploads/2025/11/drama-live-2.webp", downloadUrl: "https://dramalivedl.com/" },
+        
+                { id: 2, name: "Yacine TV V5.5.1", desc: "تطبيق ياسين تيفي الرسمي", cat: "بث مباشر", size: "12.4 MB", rating: "4.9", icon: "https://yacine-tv.ma/wp-content/uploads/2025/10/Yacine-1.png", downloadUrl: "https://yacine-tv.ma/download-yassin-tv/" },
+        
+     
+           { id: 3, name: "YTV Player Pro", desc: "المشغل الرسمي لياسين تيفي", cat: "مشغل", size: "12.4 MB", rating: "4.9", icon: "logo/2.png", downloadUrl: "apk/YTVPlayer_12.0.apk" },
+        
+        { id: 7, name: "Yacine TV مهكر", desc: "Yacine TV بدون إعلانات", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://yacine-tv.ma/wp-content/uploads/2025/10/Yacine-1.png", downloadUrl: "https://www.mediafire.com/file/nh1kw8om01udn5y/Yacine_TV_v3.1xP.apk/file" },
+        { id: 8, name: "ياسين تيفي الأسود", desc: "Yacine TV Black edition بدون مشغل", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/yt.jfif", downloadUrl: "https://www.mediafire.com/file/h9l1j6o2oahj303/Yacine_.TV.Black.apk/file" },
+                 
+                   { id: 11, name: "General TV Pro", desc: "كود تفعيل 🔓 5050", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://general-tv.com/wp-content/uploads/2025/10/general-tv-slide.png", downloadUrl: "https://genral-tv.com/" },
+        
+        { id: 24, name: "General TV مهكر", desc: "نسخة مهكرة كود 5050", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/12/202-150x150.png", downloadUrl: "https://app.khadamatepro.com/Download/moham/Apps/GENRAL_PRO_2.5-kitabnews.com-.apk" },
+        
+     
         { id: 29, name: "عالم الدراما", desc: "مسلسلات عربية وعالمية. يحتاج مشغل DWPlayer.", cat: "مسلسلات", size: "31 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2025/11/drama-world-6-150x150.webp", downloadUrl: "https://mixmods.org/nc/App/dramaworld/DramaWorld-V4.2a.apk" },
         
  {id: 30,
@@ -408,35 +428,51 @@
                 downloadUrl: "https://mixmods.org/nc/App/dramaworld/DWPlayer-V1.4.apk"
             },
             
-        { id: 27, name: "Netflix مهكر", desc: "Netflix مهكر 2026 – مشاهدة بدون إعلانات.", cat: "Netflix", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/11/%D9%86%D8%AA%D9%81%D9%84%D9%83%D8%B3.webp", downloadUrl: "https://app.khadamatepro.com/Download/admin/Apps/Netflix_v9.50.0_MOD.apk" },
+      { id: 22, name: "AYA TV v3.15 مهكر", desc: "✅ لا يحتاج كود أو مشغل", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2025/11/aya-tv-pro-8-96x96.webp", downloadUrl: "https://www.mediafire.com/file/5o1cnzq8to3p33e/AYA_TV_v3.15_AdFree_NoPlayer.apk/file" },
+       
+      { id: 31, name: "Google Gemini", desc: "✅ Google",
+      cat: "AI", size: "10 MB", rating: "4.8", icon: "https://bard.ar.aptoide.com/_next/image?url=https%3A%2F%2Fcdn.aptoide.com%2Fimgs%2F2%2Fc%2F4%2F2c4e2d188f5df936d954b9228a90d1f3_icon.png&w=256&q=75", downloadUrl: "https://dw.uptodown.net/dwn/QHXh2b53L2Y8JNfUwCcUCkbRcbixUG6CAACE1QTOfTPqd49IoxNislDm7HgU26C7D4zNBXH4AF_eANFa1beiga4_mjGZw1ibHyqLBoSuixrSBgeqzui0PMwVJVjb5iAn/bkx7oqH245maUNUGsBIQzYKK8FCHOEUHEVpTrPCfgWGyw2L2FeONIChRpVWzmY6GA2_dS884LAzDoqDLN_TqDTLIirYrjgjWSRXsCovMAwVI8nDDdxc0M0PZa0Jxuuj3/5bfoFmxA7E7fYniI7g_VNZqWI_0lsQDlKrqaMDuw9KOXdBgPnSK90UtuHAA83kadnKm2JFbuHrPlAQsfJBDXwDR2ULlDUbdcDIQvqF30vaGYLGYYVKYdUP2JqdGhFdkz/uptodown-com.google.android.apps.bard.apk" },
+                 
+      { id: 32, name: "whatsapp", desc: "whatsapp.",
+      cat: "whatsapp.", size: "10 MB", rating: "4.8", icon: "https://cdn.aptoide.com/imgs/1/2/2/1227f7edc0704ff99f73e0425d85ab5d_icon.png?w=100", downloadUrl: "https://scontent.whatsapp.net/v/t61.25591-34/10000000_2369797936868259_1705562541720575021_n.apk/WhatsApp.apk?ccb=1-7&_nc_sid=c49adc&_nc_ohc=WBlc83B0_7MQ7kNvwFGvqUK&_nc_oc=Adqz1J05kLYXDH3UDhprx-Ny11f9XfWFsIJ8hptureJoAhdgRaq_-6sVytp2D27QQXY&_nc_zt=3&_nc_ht=scontent.whatsapp.net&_nc_gid=Z80OuDqCx05eErfef9QpeA&_nc_ss=7a389&oh=01_Q5Aa4QEn1-0Z-sV6Ec-Qa6Y5tI30Q2YNPxbh_PBXof5ZuYHydQ&oe=6A0A2AC5" },
+      
+                 { id: 25, name: "YouTube TV مهكر", desc: "YouTube TV بدون إعلانات مطلقاً.", cat: "YouTube", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/12/fewgew.webp", downloadUrl: "https://app.khadamatepro.com/Download/moham/Apps/YouTube_TV_v8.20.0_.apk" }, 
+                 
+        { id: 27, name: "Netflix مهكر", desc: "Netflix V9.55.0 مهكر 2026 – مشاهدة بدون إعلانات.", cat: "Netflix", size: "10 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2026/02/netflix.webp", downloadUrl: "https://apps2.kitabmod.com/dwn2026/admin/Apps/NetflixProv9.55.0Premium.apk" },
         
-        { id: 26, name: "Shahid VIP مهكر", desc: "شاهد بدون إعلانات. premium unlocked 2026", cat: "Shahid VIP", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/11/unnamed-12-1.webp", downloadUrl: "https://app.khadamatepro.com/Download/admin/Apps/Shahid_v7.113.0_Unlocked_%5BTraidMod.Net%5D.apk" },
+        { id: 26, name: "Shahid VIP v7.113.0 مهكر", desc: "شاهد بدون إعلانات. premium unlocked 2026", cat: "Shahid VIP", size: "10 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2026/02/vip-shahid-2-96x96.webp", downloadUrl: "https://app.khadamatepro.com/Download/admin/Apps/Shahid_v7.113.0_Unlocked_%5BTraidMod.Net%5D.apk" },
         
-        { id: 25, name: "YouTube TV مهكر", desc: "YouTube TV بدون إعلانات مطلقاً.", cat: "YouTube", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/12/fewgew.webp", downloadUrl: "https://app.khadamatepro.com/Download/moham/Apps/YouTube_TV_v8.20.0_.apk" },
+
+
         
-        { id: 1, name: "القرآن لا إعلانات", desc: "أفضل تطبيق قرآن للشاشات الذكية.", cat: "القرآن", size: "32.1 MB", rating: "4.9", icon: "logo/0.png", downloadUrl: "apk/Qran.apk" },
-        { id: 2, name: "Yacine TV V3", desc: "تطبيق ياسين تيفي الرسمي", cat: "بث مباشر", size: "12.4 MB", rating: "4.9", icon: "logo/yacine.webp", downloadUrl: "apk/YacineTV_V3.apk" },
-        { id: 3, name: "YTV Player Pro", desc: "المشغل الرسمي لياسين تيفي", cat: "مشغل", size: "12.4 MB", rating: "4.9", icon: "logo/2.png", downloadUrl: "apk/YTVPlayer_12.0.apk" },
         { id: 4, name: "YTV مهكر", desc: "YTV Pro Player بدون إعلانات", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/YTV-Player-Pro-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/0z0u3j9zydusd43/YTV_PRO_AdFree.apk/file" },
         { id: 5, name: "Labil TV V1", desc: "يتطلب Wuffy Player. قنوات متعددة", cat: "بث مباشر", size: "12.4 MB", rating: "4.9", icon: "logo/LabelTV.png", downloadUrl: "apk/LabelTV-V1.apk" },
-        { id: 7, name: "Yacine TV مهكر", desc: "Yacine TV بدون إعلانات", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2023/10/Yacine-TV-Poster.webp", downloadUrl: "https://www.mediafire.com/file/nh1kw8om01udn5y/Yacine_TV_v3.1xP.apk/file" },
-        { id: 8, name: "ياسين تيفي الأسود", desc: "Yacine TV Black edition بدون مشغل", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/yt.jfif", downloadUrl: "https://www.mediafire.com/file/h9l1j6o2oahj303/Yacine_.TV.Black.apk/file" },
-        { id: 9, name: "دراما لايف مهكر", desc: "Drama Live مهكر 2026 بدون كود", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/03/Drama-Live-Poster.webp", downloadUrl: "https://www.mediafire.com/file/zag54wy0buvl9zg/Drama_Live_Pr.apk/file" },
-        { id: 10, name: "Drama Live", desc: "كود التفعيل: fgcode.org/232425", cat: "بث مباشر", size: "22.1 MB", rating: "5.0", icon: "https://dramalive-app.org/wp-content/uploads/2023/07/drama-live.webp", downloadUrl: "https://www.mediafire.com/file/fyjj189xw58621b/dramalive.apk/file" },
-        { id: 11, name: "General TV Pro", desc: "كود تفعيل 🔓 5050", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://general-tv.com/wp-content/uploads/2025/10/general-tv-slide.png", downloadUrl: "https://genral-tv.com/wp-content/uploads/2025/11/GENRAL-TVBOX.apk" },
-        { id: 24, name: "General TV مهكر", desc: "نسخة مهكرة كود 5050", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/12/202-150x150.png", downloadUrl: "https://app.khadamatepro.com/Download/moham/Apps/GENRAL_PRO_2.5-kitabnews.com-.apk" },
-        { id: 22, name: "AYA TV مهكر", desc: "✅ لا يحتاج كود أو مشغل", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2023/10/AYA-TV-Logo-224x224.webp", downloadUrl: "https://www.mediafire.com/file/5o1cnzq8to3p33e/AYA_TV_v3.15_AdFree_NoPlayer.apk/file" },
+  
+        
+
+        
         { id: 12, name: "IPTV Smarters Pro", desc: "مشغل IPTV متطور", cat: "مشغل", size: "28.5 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/5d7/835/5d7835a806b1cdc5d7427879634e5417a12f8c94e6dab633dcd7ff81be9115a1:100", downloadUrl: "https://url-provider.aptoide.com/download/cGFja2FnZV9uYW1lPWlwdHYuc21hcnRlcnMucHJvJmFwa19tZDVzdW09ZGFiOGRlNDI0ZWQ1OGY3NTAxOWY2ZDY3ZGM2YmMwNjkmdmVyY29kZT0zJmxvY2FsZT1lbl9VUyZhYWI9MCZxPWJYbERVRlU5WVhKdE5qUXRkamhoTEdGeWJXVmhZbWt0ZGpkaExHRnliV1ZoWW1rbWJHVmhibUpoWTJzOU1BJnVybF9hcHRvaWRlPWh0dHBzJTNBJTJGJTJGcG9vbC5hcGsuYXB0b2lkZS5jb20lMkZhcHRvaWRlLXdlYiUyRmlwdHYtc21hcnRlcnMtcHJvLTMtNzA5NTkyODktZGFiOGRlNDI0ZWQ1OGY3NTAxOWY2ZDY3ZGM2YmMwNjkuYXBr" },
+        
         { id: 13, name: "Google Chrome", desc: "متصفح سريع للشاشات", cat: "متصفح", size: "15 MB", rating: "4.7", icon: "https://img.utdstc.com/icon/a68/a38/a68a3820341fa3acba9b9fb6028b3fba8de998cf72d95b992813ff5a1cd316b2:100", downloadUrl: "https://url-provider.aptoide.com/download/cGFja2FnZV9uYW1lPWNvbS5hbmRyb2lkLmNocm9tZSZhcGtfbWQ1c3VtPTZiZDVkYTFlMTBiNmFjMDc1Yzc5ZGU0MDc1NTA3YmFiJnZlcmNvZGU9NjA0NTE5NDIwJmxvY2FsZT1lbl9VUyZhYWI9MSZxPWJYbERVRlU5WVhKdE5qUXRkamhoTEdGeWJXVmhZbWt0ZGpkaExHRnliV1ZoWW1rbWJHVmhibUpoWTJzOU1BJnVybF9hcHRvaWRlPWh0dHBzJTNBJTJGJTJGcG9vbC5hcGsuYXB0b2lkZS5jb20lMkZhcHRvaWRlLXdlYiUyRmNvbS1hbmRyb2lkLWNocm9tZS02MDQ1MTk0MjAtNjc2NzEyMDMtNmJkNWRhMWUxMGI2YWMwNzVjNzlkZTQwNzU1MDdiYWIuYXBr" },
+        
         { id: 14, name: "Downloader", desc: "لتحميل أي ملف من الرابط", cat: "أدوات", size: "4.2 MB", rating: "4.9", icon: "https://img.utdstc.com/icon/b64/9e1/b649e19ef06377e3d4ef221a1505267c85711a277c59ccabb8951ceef7fc6618:100", downloadUrl: "https://www.mediafire.com/file/533gxlnyq8hkmza/downloader.apk/file" },
+        
         { id: 15, name: "TV Bro", desc: "متصفح مخصص للريموت", cat: "متصفح", size: "10.8 MB", rating: "4.6", icon: "https://cdn.aptoide.com/imgs/0/1/d/01d706616f9cd2c25d484a5bd38b4317_icon.png?w=128", downloadUrl: "https://url-provider.aptoide.com/download/cGFja2FnZV9uYW1lPWNvbS5waGxveC50dndlYmJyb3dzZXImYXBrX21kNXN1bT1iMTZjNDJiMDgxOTk2YTI0ZWM3MThmMjU4MTZiMjk5ZiZ2ZXJjb2RlPTYxJmxvY2FsZT1lbl9VUyZhYWI9MSZxPWJYbERVRlU5WVhKdE5qUXRkamhoTEdGeWJXVmhZbWt0ZGpkaExHRnliV1ZoWW1rbWJHVmhibUpoWTJzOU1BJnVybF9hcHRvaWRlPWh0dHBzJTNBJTJGJTJGcG9vbC5hcGsuYXB0b2lkZS5jb20lMkZhcHRvaWRlLXdlYiUyRmNvbS1waGxveC10dndlYmJyb3dzZXItNjEtNjcwOTI1MDMtYjE2YzQyYjA4MTk5NmEyNGVjNzE4ZjI1ODE2YjI5OWYuYXBr" },
+        
         { id: 16, name: "Uptodown Store", desc: "متجر بديل", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://img.utdstc.com/icon/f66/dd0/f66dd06c25088f96b64eb440bcc90a2994cc645680cb27840b30fbf996902804:100", downloadUrl: "https://www.mediafire.com/file/ht53zsf8kbcwwkk/uptodown-app-store-6-99.apk/file" },
-        { id: 17, name: "Aptoide TV", desc: "متجر تطبيقات TV", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://static-images.aptoide.com/static/imgs/aptoide-logo.svg", downloadUrl: "https://www.mediafire.com/file/r8eslclz72ronvo/Aptoide+TV.apk/file" },
-        { id: 18, name: "Send Files To TV", desc: "مشاركة الملفات", cat: "أدوات", size: "12.88 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/f46/012/f46012d81274d4c315be99bf9f8b13c41645d830f3c1856136da573f3b5f2808:100", downloadUrl: "https://pool.apk.aptoide.com/aptoide-web/com-yablio-sendfilestotv-69-72103220-3575b4d498c0914cdd601a421d929d58.apk" },
+        
+        { id: 17, name: "Aptoide TV", desc: "متجر تطبيقات TV", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://static-images.aptoide.com/static/imgs/aptoide-logo.svg", downloadUrl: "https://tv.aptoide.com/" },
+        
+        { id: 18, name: "Send Files To TV", desc: "مشاركة الملفات", cat: "أدوات", size: "12.88 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/f46/012/f46012d81274d4c315be99bf9f8b13c41645d830f3c1856136da573f3b5f2808:100", downloadUrl: "https://pool.apk.aptoide.com/aptoide-web/cm-aptoide-pt-12060-71289868-2725e9ae81839a4ae69f8f362fc4d7e1.apk?apk_name=send-files-to-tv" },
+        
         { id: 19, name: "الأسطورة مهكر", desc: "مشاهدة بدون إعلانات", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/Ostora-Player-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/qdub8e0w5bpi8bx/Ostora_TV.apk/file" },
+        
         { id: 20, name: "مشغل الأسطورة 1", desc: "مشغل مهكر", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/Ostora-Player-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/rw0ac90zpedx9kl/Url_Player_1.apk/file" },
+        
         { id: 21, name: "مشغل الأسطورة 2", desc: "مشغل مهكر ثانٍ", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/Ostora-Player-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/tpykvc0hiyxqdb5/Url_Player_2.apk/file" },
+        
         { id: 23, name: "AYMAN TV مهكر", desc: "اشتراك مدفوع مجاناً", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2023/10/AYMANE-TV-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/3dgv6xc2d25q7yc/AYMANE_TV_v1.5_AdFree_NoPlayer.apk/file" }
+        
     ];
 
     const appsListEl = document.getElementById('appsList');
