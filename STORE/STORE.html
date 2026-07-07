@@ -4,529 +4,793 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link href="https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/MK.jfif" rel="icon" type="image/x-icon">
-    <title>متجر تطبيقات AMINE MK | Android TV Store</title>
+    <title>متجر تطبيقات AMINE MK | Premium Android TV Store</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#ff3d00',
+                            hover: '#ff6429',
+                            darkBg: '#05070a',
+                            cardBg: 'rgba(20, 28, 32, 0.75)',
+                            panelBg: 'rgba(10, 15, 20, 0.95)'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;850&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root {
-            --primary-color: #ff3d00;
-            --primary-hover: #ff6429;
-            --bg-dark: #05070a;
-            --card-bg: rgba(20, 28, 32, 0.85);
-            --text-main: #ffffff;
-            --text-dim: #bcbcbc;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, 'Cairo', sans-serif;
-        }
-
         body {
-            background: radial-gradient(circle at 50% 0%, #1a1f2c, #030507);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 1.5rem;
-            line-height: 1.6;
+            background: radial-gradient(circle at 50% 0%, #1e1b29 0%, #08070d 60%, #030205 100%);
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* Custom Scrollbar for Premium Look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-
-        /* Header Premium Styling */
-        .header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem 0;
-            border-bottom: 2px solid rgba(255, 61, 0, 0.2);
-            margin-bottom: 2rem;
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
         }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            border: 2px solid var(--primary-color);
-        }
-
-        .logo h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, #ff8a65, var(--primary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-            text-shadow: 0 0 15px rgba(255, 61, 0, 0.2);
-        }
-
-        .logo p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Search Enhancement */
-        .search-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .search-icon {
-            width: 50px;
-            height: 50px;
-            background: #1e2a2f;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 61, 0, 0.2);
-        }
-
-        .search-icon:hover, .search-icon:focus {
-            background: var(--primary-color);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--primary-color);
-            outline: none;
-        }
-
-        .search-box {
-            width: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .search-box.active {
-            width: 300px;
-            opacity: 1;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px;
-            background: #12181c;
-            border: 2px solid #2c3e4f;
-            border-radius: 15px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: var(--primary-color);
-        }
-
-        /* Status & Filters */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 10px 20px;
-            border-radius: 15px;
-        }
-
-        .back-btn {
-            background: var(--primary-color);
-            border: none;
-            padding: 8px 20px;
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 61, 0, 0.3);
             border-radius: 10px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            display: none; /* سيظهر عند البحث فقط */
-            transition: 0.3s;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff3d00;
         }
 
-        .back-btn:hover {
-            background: var(--primary-hover);
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(18, 18, 29, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* Grid & Cards */
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1.5rem;
+        .glass-card {
+            background: rgba(24, 24, 37, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .app-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+        .glass-card:hover {
+            border-color: rgba(255, 61, 0, 0.5);
+            box-shadow: 0 15px 35px rgba(255, 61, 0, 0.15);
+            background: rgba(32, 32, 50, 0.8);
         }
 
-        .app-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-color);
-            background: #1a242d;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        /* Active highlight for TV Controller Simulator */
+        .tv-focus {
+            outline: 3px solid #ff3d00 !important;
+            outline-offset: 4px;
+            transform: scale(1.03) translateY(-4px);
+            box-shadow: 0 0 25px rgba(255, 61, 0, 0.45) !important;
+            background: rgba(35, 35, 60, 0.9) !important;
+            border-color: #ff3d00 !important;
         }
 
-        .card-top {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
+        /* Pulse Animations */
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
         }
-
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            background: #232d36;
-            border-radius: 18px;
-            padding: 5px;
-            flex-shrink: 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 14px;
-        }
-
-        .app-main-info {
-            flex: 1;
-        }
-
-        .app-name {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #fff;
-        }
-
-        .app-cat {
-            display: inline-block;
-            background: rgba(255, 61, 0, 0.15);
-            color: #ffab91;
-            font-size: 0.75rem;
-            padding: 2px 10px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-
-        .app-desc {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            height: 45px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .app-stats {
-            display: flex;
-            gap: 12px;
-            font-size: 0.8rem;
-            color: #8899a6;
-        }
-
-        .download-btn {
-            background: linear-gradient(135deg, var(--primary-color), #ff6d00);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .download-btn:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-
-        /* Profile Section */
-        .dev-section {
-            margin-top: 100px;
-            background: linear-gradient(180deg, rgba(255,61,0,0.05) 0%, rgba(0,0,0,0.5) 100%);
-            border-radius: 40px;
-            padding: 3rem 2rem;
-            text-align: center;
-            border: 1px solid rgba(255,61,0,0.1);
-        }
-
-        .dev-avatar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 4px solid var(--primary-color);
-            margin: -90px auto 20px;
-            background: #000;
-            padding: 5px;
-            box-shadow: 0 10px 25px rgba(255,61,0,0.2);
-        }
-
-        .dev-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            background: #1a242d;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .social-icon:hover {
-            background: var(--primary-color);
-            transform: translateY(-5px);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            color: #556677;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            .search-box.active { width: 200px; }
-            .logo h1 { font-size: 1.6rem; }
+        .bg-glow {
+            animation: pulse-slow 8s infinite ease-in-out;
         }
     </style>
 </head>
-<body>
+<body class="text-white min-h-screen relative selection:bg-brand-primary selection:text-white pb-10">
 
-<div class="container">
-    <header class="header">
-        <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/MK.jfif" class="logo-img" alt="MK">
-            <div class="logo">
-                <h1>Ahmed MK Store</h1>
-                <p><i class="fas fa-check-circle" style="color:#00e676"></i> تطبيقات Android TV الحصرية</p>
-            </div>
-        </div>
+    <!-- Ambient Background Light Glows -->
+    <div class="fixed top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-brand-primary/10 blur-[120px] pointer-events-none bg-glow"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none bg-glow" style="animation-delay: -4s;"></div>
 
-        <div class="search-container">
-            <div class="search-box" id="searchBox">
-                <input type="text" id="searchInput" placeholder="ابحث عن تطبيقك المفضل...">
-            </div>
-            <div class="search-icon" id="searchIcon" tabindex="0">
-                <i class="fas fa-search" id="searchToggleIcon"></i>
-            </div>
-        </div>
-    </header>
-
-    <div class="status-bar">
-        <span id="resultsCount"><i class="fas fa-spinner fa-spin"></i> جاري مزامنة التطبيقات...</span>
-        <button class="back-btn" id="backBtn"><i class="fas fa-home"></i> الرئيسية</button>
-    </div>
-
-    <main class="apps-grid" id="appsList">
-        <!-- Apps injected here -->
-    </main>
-
-    <section class="dev-section">
-        <div class="dev-avatar">
-            <img src="https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/MK.jfif" alt="Dev">
-        </div>
-        <h2 style="font-size: 2rem; margin-bottom: 5px;">أحمد أمين MK</h2>
-        <p style="color: var(--primary-color); font-weight: bold; font-size: 1.1rem;">Premium Android Developer</p>
-        <p style="max-width: 700px; margin: 15px auto; color: #94a3b8;">
-            المصدر الأول لتطبيقات التلفاز المعدلة والآمنة. نحن نختار لك الأفضل لضمان تجربة مشاهدة بدون إعلانات وبأعلى جودة ممكنة.
-        </p>
-        <div class="social-row">
-            <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 AMINE MK Store. All Rights Reserved.</p>
-    </footer>
-</div>
-
-<script>
-    const apps = [
-        { id: 1, name: "القرآن لا إعلانات", desc: "أفضل تطبيق قرآن للشاشات الذكية.", cat: "القرآن", size: "32.1 MB", rating: "4.9", icon: "logo/0.png", downloadUrl: "apk/Qran.apk" },
-        { id: 28, name: "LABIL TV PRO", desc: "تحتاج تثبيت مشغل Wuffy Player. بث مباشر حصري.", cat: "بث مباشر", size: "31 MB", rating: "4.8", icon: "https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo.png", downloadUrl: "https://www.appcreator24.com/app3917013-yrtpbn" },
-        { id: 6, name: "Wuffy Player", desc: "اقرأ جميع محتوياتك السمعية والبصرية على التلفاز الذكي.", cat: "مشغل", size: "11.8 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/72f/3ee/72f3ee5a0b995f273e66789c531d570b420db5d80d1969428f9fe733bf230e84:100", downloadUrl: "apk/Wuffy. Player_3.5.7 .apk" },
-        { id: 9, name: "دراما لايف مهكر", desc: "Drama Live مهكر 2026 بدون كود", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://dramalivedl.com/wp-content/uploads/2025/11/drama-live-2.webp", downloadUrl: "https://www.mediafire.com/file/zag54wy0buvl9zg/Drama_Live_Pr.apk/file" },
-        { id: 10, name: "Drama Live", desc: "كود التفعيل: fgcode.org/232425", cat: "بث مباشر", size: "22.1 MB", rating: "5.0", icon: "https://dramalivedl.com/wp-content/uploads/2025/11/drama-live-2.webp", downloadUrl: "https://dramalivedl.com/" },
-        { id: 2, name: "Yacine TV V5.5.1", desc: "تطبيق ياسين تيفي الرسمي", cat: "بث مباشر", size: "12.4 MB", rating: "4.9", icon: "https://yacine-tv.ma/wp-content/uploads/2025/10/Yacine-1.png", downloadUrl: "https://yacine-tv.ma/download-yassin-tv/" },
-        { id: 3, name: "YTV Player Pro", desc: "المشغل الرسمي لياسين تيفي", cat: "مشغل", size: "12.4 MB", rating: "4.9", icon: "logo/2.png", downloadUrl: "apk/YTVPlayer_12.0.apk" },
-        { id: 7, name: "Yacine TV مهكر", desc: "Yacine TV بدون إعلانات", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://yacine-tv.ma/wp-content/uploads/2025/10/Yacine-1.png", downloadUrl: "https://www.mediafire.com/file/nh1kw8om01udn5y/Yacine_TV_v3.1xP.apk/file" },
-        { id: 8, name: "ياسين تيفي الأسود", desc: "Yacine TV Black edition بدون مشغل", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/yt.jfif", downloadUrl: "https://www.mediafire.com/file/h9l1j6o2oahj303/Yacine_.TV.Black.apk/file" },
-        { id: 11, name: "General TV Pro", desc: "كود تفعيل 🔓 5050", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://general-tv.com/wp-content/uploads/2025/10/general-tv-slide.png", downloadUrl: "https://genral-tv.com/" },
-        { id: 24, name: "General TV مهكر", desc: "نسخة مهكرة كود 5050", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/12/202-150x150.png", downloadUrl: "https://app.khadamatepro.com/Download/moham/Apps/GENRAL_PRO_2.5-kitabnews.com-.apk" },
-        { id: 29, name: "عالم الدراما", desc: "مسلسلات عربية وعالمية. يحتاج مشغل DWPlayer.", cat: "مسلسلات", size: "31 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2025/11/drama-world-6-150x150.webp", downloadUrl: "https://mixmods.org/nc/App/dramaworld/DramaWorld-V4.2a.apk" },
-        { id: 30, name: "DWPlayer-مشغل عالم دراما", desc: "اقرأ جميع محتوياتك السمعية والبصرية على التلفاز الذكي.", cat: "مشغل", size: "11.8 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/e03/ae9/e03ae969c9fe126734cb7b4f28db462423873305090567bfbdf16eac9a2d6a43:100", downloadUrl: "https://mixmods.org/nc/App/dramaworld/DWPlayer-V1.4.apk" },
-        { id: 22, name: "AYA TV v3.15 مهكر", desc: "✅ لا يحتاج كود أو مشغل", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2025/11/aya-tv-pro-8-96x96.webp", downloadUrl: "https://www.mediafire.com/file/5o1cnzq8to3p33e/AYA_TV_v3.15_AdFree_NoPlayer.apk/file" },
-        { id: 31, name: "Google Gemini", desc: "✅ Google الذكاء الاصطناعي", cat: "AI", size: "10 MB", rating: "4.8", icon: "https://bard.ar.aptoide.com/_next/image?url=https%3A%2F%2Fcdn.aptoide.com%2Fimgs%2F2%2Fc%2F4%2F2c4e2d188f5df936d954b9228a90d1f3_icon.png&w=256&q=75", downloadUrl: "https://dw.uptodown.net/dwn/QHXh2b53L2Y8JNfUwCcUCkbRcbixUG6CAACE1QTOfTPqd49IoxNislDm7HgU26C7D4zNBXH4AF_eANFa1beiga4_mjGZw1ibHyqLBoSuixrSBgeqzui0PMwVJVjb5iAn/bkx7oqH245maUNUGsBIQzYKK8FCHOEUHEVpTrPCfgWGyw2L2FeONIChRpVWzmY6GA2_dS884LAzDoqDLN_TqDTLIirYrjgjWSRXsCovMAwVI8nDDdxc0M0PZa0Jxuuj3/5bfoFmxA7E7fYniI7g_VNZqWI_0lsQDlKrqaMDuw9KOXdBgPnSK90UtuHAA83kadnKm2JFbuHrPlAQsfJBDXwDR2ULlDUbdcDIQvqF30vaGYLGYYVKYdUP2JqdGhFdkz/uptodown-com.google.android.apps.bard.apk" },
-        { id: 32, name: "WhatsApp", desc: "نسخة واتساب الرسمية.", cat: "اتصال", size: "10 MB", rating: "4.8", icon: "https://cdn.aptoide.com/imgs/1/2/2/1227f7edc0704ff99f73e0425d85ab5d_icon.png?w=100", downloadUrl: "https://scontent.whatsapp.net/v/t61.25591-34/10000000_2369797936868259_1705562541720575021_n.apk/WhatsApp.apk?ccb=1-7&_nc_sid=c49adc&_nc_ohc=WBlc83B0_7MQ7kNvwFGvqUK&_nc_oc=Adqz1J05kLYXDH3UDhprx-Ny11f9XfWFsIJ8hptureJoAhdgRaq_-6sVytp2D27QQXY&_nc_zt=3&_nc_ht=scontent.whatsapp.net&_nc_gid=Z80OuDqCx05eErfef9QpeA&_nc_ss=7a389&oh=01_Q5Aa4QEn1-0Z-sV6Ec-Qa6Y5tI30Q2YNPxbh_PBXof5ZuYHydQ&oe=6A0A2AC5" },
-        { id: 25, name: "YouTube TV مهكر", desc: "YouTube TV بدون إعلانات مطلقاً.", cat: "YouTube", size: "10 MB", rating: "4.8", icon: "https://kitabnews.com/wp-content/uploads/2025/12/fewgew.webp", downloadUrl: "https://app.khadamatepro.com/Download/moham/Apps/YouTube_TV_v8.20.0_.apk" },
-        { id: 27, name: "Netflix مهكر", desc: "Netflix V9.55.0 مهكر 2026 – مشاهدة بدون إعلانات.", cat: "Netflix", size: "10 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2026/02/netflix.webp", downloadUrl: "https://apps2.kitabmod.com/dwn2026/admin/Apps/NetflixProv9.55.0Premium.apk" },
-        { id: 26, name: "Shahid VIP مهكر", desc: "شاهد بدون إعلانات. premium unlocked 2026", cat: "Shahid VIP", size: "10 MB", rating: "4.8", icon: "https://kitabapk.org/wp-content/uploads/2026/02/vip-shahid-2-96x96.webp", downloadUrl: "https://app.khadamatepro.com/Download/admin/Apps/Shahid_v7.113.0_Unlocked_%5BTraidMod.Net%5D.apk" },
-        { id: 4, name: "YTV مهكر", desc: "YTV Pro Player بدون إعلانات", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/YTV-Player-Pro-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/0z0u3j9zydusd43/YTV_PRO_AdFree.apk/file" },
-        { id: 5, name: "Labil TV V1", desc: "يتطلب Wuffy Player. قنوات متعددة", cat: "بث مباشر", size: "12.4 MB", rating: "4.9", icon: "logo/LabelTV.png", downloadUrl: "apk/LabelTV-V1.apk" },
-        { id: 12, name: "IPTV Smarters Pro", desc: "مشغل IPTV متطور", cat: "مشغل", size: "28.5 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/5d7/835/5d7835a806b1cdc5d7427879634e5417a12f8c94e6dab633dcd7ff81be9115a1:100", downloadUrl: "https://url-provider.aptoide.com/download/cGFja2FnZV9uYW1lPWlwdHYuc21hcnRlcnMucHJvJmFwa19tZDVzdW09ZGFiOGRlNDI0ZWQ1OGY3NTAxOWY2ZDY3ZGM2YmMwNjkmdmVyY29kZT0zJmxvY2FsZT1lbl9VUyZhYWI9MCZxPWJYbERVRlU5WVhKdE5qUXRkamhoTEdGeWJXVmhZbWt0ZGpkaExHRnliV1ZoWW1rbWJHVmhibUpoWTJzOU1BJnVybF9hcHRvaWRlPWh0dHBzJTNBJTJGJTJGcG9vbC5hcGsuYXB0b2lkZS5jb20lMkZhcHRvaWRlLXdlYiUyRmlwdHYtc21hcnRlcnMtcHJvLTMtNzA5NTkyODktZGFiOGRlNDI0ZWQ1OGY3NTAxOWY2ZDY3ZGM2YmMwNjkuYXBr" },
-        { id: 13, name: "Google Chrome", desc: "متصفح سريع للشاشات", cat: "متصفح", size: "15 MB", rating: "4.7", icon: "https://img.utdstc.com/icon/a68/a38/a68a3820341fa3acba9b9fb6028b3fba8de998cf72d95b992813ff5a1cd316b2:100", downloadUrl: "https://url-provider.aptoide.com/download/cGFja2FnZV9uYW1lPWNvbS5hbmRyb2lkLmNocm9tZSZhcGtfbWQ1c3VtPTZiZDVkYTFlMTBiNmFjMDc1Yzc5ZGU0MDc1NTA3YmFiJnZlcmNvZGU9NjA0NTE5NDIwJmxvY2FsZT1lbl9VUyZhYWI9MSZxPWJYbERVRlU5WVhKdE5qUXRkamhoTEdGeWJXVmhZbWt0ZGpkaExHRnliV1ZoWW1rbWJHVmhibUpoWTJzOU1BJnVybF9hcHRvaWRlPWh0dHBzJTNBJTJGJTJGcG9vbC5hcGsuYXB0b2lkZS5jb20lMkZhcHRvaWRlLXdlYiUyRmNvbS1hbmRyb2lkLWNocm9tZS02MDQ1MTk0MjAtNjc2NzEyMDMtNmJkNWRhMWUxMGI2YWMwNzVjNzlkZTQwNzU1MDdiYWIuYXBr" },
-        { id: 14, name: "Downloader", desc: "لتحميل أي ملف من الرابط", cat: "أدوات", size: "4.2 MB", rating: "4.9", icon: "https://img.utdstc.com/icon/b64/9e1/b649e19ef06377e3d4ef221a1505267c85711a277c59ccabb8951ceef7fc6618:100", downloadUrl: "https://www.mediafire.com/file/533gxlnyq8hkmza/downloader.apk/file" },
-        { id: 15, name: "TV Bro", desc: "متصفح مخصص للريموت", cat: "متصفح", size: "10.8 MB", rating: "4.6", icon: "https://cdn.aptoide.com/imgs/0/1/d/01d706616f9cd2c25d484a5bd38b4317_icon.png?w=128", downloadUrl: "https://url-provider.aptoide.com/download/cGFja2FnZV9uYW1lPWNvbS5waGxveC50dndlYmJyb3dzZXImYXBrX21kNXN1bT1iMTZjNDJiMDgxOTk2YTI0ZWM3MThmMjU4MTZiMjk5ZiZ2ZXJjb2RlPTYxJmxvY2FsZT1lbl9VUyZhYWI9MSZxPWJYbERVRlU5WVhKdE5qUXRkamhoTEdGeWJXVmhZbWt0ZGpkaExHRnliV1ZoWW1rbWJHVmhibUpoWTJzOU1BJnVybF9hcHRvaWRlPWh0dHBzJTNBJTJGJTJGcG9vbC5hcGsuYXB0b2lkZS5jb20lMkZhcHRvaWRlLXdlYiUyRmNvbS1waGxveC10dndlYmJyb3dzZXItNjEtNjcwOTI1MDMtYjE2YzQyYjA4MTk5NmEyNGVjNzE4ZjI1ODE2YjI5OWYuYXBr" },
-        { id: 16, name: "Uptodown Store", desc: "متجر بديل", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://img.utdstc.com/icon/f66/dd0/f66dd06c25088f96b64eb440bcc90a2994cc645680cb27840b30fbf996902804:100", downloadUrl: "https://www.mediafire.com/file/ht53zsf8kbcwwkk/uptodown-app-store-6-99.apk/file" },
-        { id: 17, name: "Aptoide TV", desc: "متجر تطبيقات TV", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://static-images.aptoide.com/static/imgs/aptoide-logo.svg", downloadUrl: "https://tv.aptoide.com/" },
-        { id: 18, name: "Send Files To TV", desc: "مشاركة الملفات", cat: "أدوات", size: "12.88 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/f46/012/f46012d81274d4c315be99bf9f8b13c41645d830f3c1856136da573f3b5f2808:100", downloadUrl: "https://pool.apk.aptoide.com/aptoide-web/cm-aptoide-pt-12060-71289868-2725e9ae81839a4ae69f8f362fc4d7e1.apk?apk_name=send-files-to-tv" },
-        { id: 19, name: "الأسطورة مهكر", desc: "مشاهدة بدون إعلانات", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/Ostora-Player-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/qdub8e0w5bpi8bx/Ostora_TV.apk/file" },
-        { id: 20, name: "مشغل الأسطورة 1", desc: "مشغل مهكر", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/Ostora-Player-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/rw0ac90zpedx9kl/Url_Player_1.apk/file" },
-        { id: 21, name: "مشغل الأسطورة 2", desc: "مشغل مهكر ثانٍ", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2024/02/Ostora-Player-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/tpykvc0hiyxqdb5/Url_Player_2.apk/file" },
-        { id: 23, name: "AYMAN TV مهكر", desc: "اشتراك مدفوع مجاناً", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://traidmod.app/wp-content/uploads/2023/10/AYMANE-TV-Logo-240x240.webp", downloadUrl: "https://www.mediafire.com/file/3dgv6xc2d25q7yc/AYMANE_TV_v1.5_AdFree_NoPlayer.apk/file" }
-    ];
-
-    const appsListEl = document.getElementById('appsList');
-    const searchInput = document.getElementById('searchInput');
-    const searchBox = document.getElementById('searchBox');
-    const searchIcon = document.getElementById('searchIcon');
-    const searchToggleIcon = document.getElementById('searchToggleIcon');
-    const resultsCount = document.getElementById('resultsCount');
-    const backBtn = document.getElementById('backBtn');
-
-    function renderApps(data) {
-        appsListEl.innerHTML = '';
-        if (data.length === 0) {
-            appsListEl.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 80px 20px;">
-                    <i class="fas fa-search-minus" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px; opacity: 0.5;"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 10px;">عذراً، لا توجد نتائج!</h3>
-                    <p style="color: var(--text-dim); margin-bottom: 30px;">تأكد من كتابة اسم التطبيق بشكل صحيح.</p>
-                </div>`;
-            resultsCount.innerHTML = `❌ لا توجد نتائج`;
-            backBtn.style.display = 'block';
-            return;
-        }
-
-        data.forEach(app => {
-            const card = document.createElement('div');
-            card.className = 'app-card';
-            card.innerHTML = `
-                <div class="card-top">
-                    <div class="app-icon">
-                        <img src="${app.icon}" alt="${app.name}" onerror="this.src='https://placehold.co/100x100/232d36/ff3d00?text=${app.name[0]}'">
-                    </div>
-                    <div class="app-main-info">
-                        <div class="app-name">${app.name}</div>
-                        <span class="app-cat">${app.cat}</span>
-                    </div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+        
+        <!-- Header Section -->
+        <header class="flex flex-col md:flex-row justify-between items-center gap-6 py-6 border-b border-white/10 mb-8 mt-4 glass-panel rounded-2xl px-6">
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <img src="https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/MK.jfif" 
+                         class="w-16 h-16 rounded-2xl border-2 border-brand-primary shadow-lg shadow-brand-primary/20 object-cover" 
+                         alt="Ahmed MK Logo">
+                    <div class="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-[#0c0b14] animate-pulse"></div>
                 </div>
-                <div class="app-desc">${app.desc}</div>
-                <div class="card-footer">
-                    <div class="app-stats">
-                        <span><i class="fas fa-hdd"></i> ${app.size}</span>
-                        <span><i class="fas fa-star" style="color:#ffb300"></i> ${app.rating}</span>
-                    </div>
-                    <button class="download-btn" onclick="startDownload('${app.downloadUrl}', this)">
-                        <i class="fas fa-download"></i> تحميل
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-l from-white via-orange-200 to-brand-primary bg-clip-text text-transparent">
+                        Ahmed MK Store
+                    </h1>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1 flex items-center gap-1.5">
+                        <i class="fas fa-tv text-brand-primary"></i> 
+                        تطبيقات Android TV و Smart TV المدبلجة والحصرية 2026
+                    </p>
+                </div>
+            </div>
+
+            <!-- Search and Controls -->
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center md:justify-end">
+                <!-- Search Box -->
+                <div class="relative w-full max-w-xs">
+                    <input type="text" id="searchInput" 
+                           class="w-full bg-black/40 text-white rounded-xl py-3 pl-4 pr-11 border border-white/10 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary transition-all text-sm"
+                           placeholder="ابحث عن تطبيقك المفضل...">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+
+                <!-- TV Mode Controller Toggle Button -->
+                <button id="toggleTvModeBtn" class="bg-indigo-600/30 hover:bg-indigo-600 border border-indigo-500/30 hover:border-indigo-500 px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-semibold transition-all">
+                    <i class="fas fa-gamepad"></i>
+                    <span>وضع التلفاز</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dynamic Category Filter Bar -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <span class="w-2.5 h-5 bg-brand-primary rounded-full"></span>
+                    تصفح حسب الفئة
+                </h3>
+                <span class="text-xs text-gray-400" id="totalAppsCount">جاري التحميل...</span>
+            </div>
+            <!-- Scrollable categories container -->
+            <div class="flex gap-2 overflow-x-auto pb-3 pt-1 scroll-smooth" id="categoriesBar">
+                <!-- Dynamic categories inject here -->
+            </div>
+        </div>
+
+        <!-- Notification Status Bar -->
+        <div class="flex flex-wrap justify-between items-center gap-4 bg-white/[0.02] border border-white/5 rounded-xl px-5 py-3 mb-8">
+            <div class="flex items-center gap-2.5 text-sm" id="resultsCount">
+                <i class="fas fa-spinner fa-spin text-brand-primary"></i> 
+                <span>جاري مزامنة قاعدة البيانات وقنوات البث...</span>
+            </div>
+            <button id="resetSearchBtn" class="text-xs bg-brand-primary/20 hover:bg-brand-primary text-brand-primary hover:text-white px-4 py-2 rounded-lg font-semibold transition-all hidden flex items-center gap-1.5">
+                <i class="fas fa-home"></i> عرض الكل
+            </button>
+        </div>
+
+        <!-- Main Grid for Apps -->
+        <main id="appsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Cards Loaded via JS -->
+            <div class="col-span-full py-16 text-center">
+                <i class="fas fa-circle-notch fa-spin text-4xl text-brand-primary mb-4"></i>
+                <p class="text-gray-400">جاري تحميل حزم APK والتهيأة الأمنية...</p>
+            </div>
+        </main>
+
+        <!-- Developer Bio Premium Card -->
+        <section class="mt-20 glass-panel rounded-3xl p-8 text-center relative overflow-hidden border border-brand-primary/20">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 bg-brand-primary/10 rounded-full blur-2xl"></div>
+            
+            <div class="relative z-10">
+                <div class="w-28 h-28 mx-auto rounded-full p-1 bg-gradient-to-tr from-brand-primary to-purple-600 shadow-xl mb-4">
+                    <img src="https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/MK.jfif" 
+                         class="w-full h-full rounded-full object-cover" alt="أحمد أمين MK">
+                </div>
+                <h2 class="text-2xl font-extrabold text-white">أحمد أمين MK</h2>
+                <p class="text-brand-primary font-bold text-sm tracking-wider uppercase mt-1">Premium Android & TV Specialist</p>
+                
+                <p class="max-w-2xl mx-auto text-gray-400 mt-4 leading-relaxed text-sm">
+                    المصدر الأول والأكثر أماناً لتطبيقات التلفاز وشاشات الأندرويد والـ Smart TV المعدلة بالكامل والآمنة 100%. نضمن لك جودة عالية في البث، تجارب خالية تماماً من الإعلانات المزعجة، وتحديثات متواصلة لجميع القنوات والمسلسلات.
+                </p>
+
+                <!-- Premium Social Links -->
+                <div class="flex justify-center items-center gap-3 mt-6">
+                    <a href="https://t.me/" target="_blank" class="w-12 h-12 rounded-xl bg-sky-500/15 hover:bg-sky-500 border border-sky-500/20 hover:border-sky-500 flex items-center justify-center text-sky-400 hover:text-white transition-all text-xl hover:-translate-y-1 shadow-lg" title="Telegram Channel">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://youtube.com/" target="_blank" class="w-12 h-12 rounded-xl bg-red-600/15 hover:bg-red-600 border border-red-600/20 hover:border-red-600 flex items-center justify-center text-red-500 hover:text-white transition-all text-xl hover:-translate-y-1 shadow-lg" title="YouTube Channel">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://facebook.com/" target="_blank" class="w-12 h-12 rounded-xl bg-blue-600/15 hover:bg-blue-600 border border-blue-600/20 hover:border-blue-600 flex items-center justify-center text-blue-500 hover:text-white transition-all text-xl hover:-translate-y-1 shadow-lg" title="Facebook Page">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <button onclick="shareStore()" class="w-12 h-12 rounded-xl bg-emerald-600/15 hover:bg-emerald-600 border border-emerald-600/20 hover:border-emerald-600 flex items-center justify-center text-emerald-400 hover:text-white transition-all text-xl hover:-translate-y-1 shadow-lg" title="مشاركة رابط المتجر">
+                        <i class="fas fa-share-nodes"></i>
                     </button>
                 </div>
-            `;
-            appsListEl.appendChild(card);
-        });
-        resultsCount.innerHTML = `<i class="fas fa-check-circle"></i> تم العثور على ${data.length} تطبيق`;
-    }
+            </div>
+        </section>
 
-    function startDownload(url, btn) {
-        const original = btn.innerHTML;
-        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري...`;
-        btn.disabled = true;
-        setTimeout(() => {
-            window.open(url, '_blank');
-            btn.innerHTML = `<i class="fas fa-check"></i> بدأ الآن`;
-            btn.style.background = "#00c853";
-            setTimeout(() => {
-                btn.innerHTML = original;
-                btn.style.background = "";
-                btn.disabled = false;
-            }, 3000);
-        }, 800);
-    }
+        <!-- Dynamic Toast Notification Element -->
+        <div id="toastContainer" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2"></div>
 
-    searchIcon.onclick = () => {
-        searchBox.classList.toggle('active');
-        if (searchBox.classList.contains('active')) {
-            searchInput.focus();
-            searchToggleIcon.classList.replace('fa-search', 'fa-times');
-        } else {
-            searchToggleIcon.classList.replace('fa-times', 'fa-search');
-            if (searchInput.value !== '') resetSearch();
+        <!-- App Details Modal -->
+        <div id="appModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-all">
+            <div class="glass-panel w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border border-white/10 scale-95 transform transition-transform duration-300" id="modalContent">
+                
+                <!-- Modal Header -->
+                <div class="relative h-24 bg-gradient-to-l from-brand-primary/40 to-purple-800/40 p-6 flex items-start justify-between">
+                    <span class="text-xs bg-brand-primary px-3 py-1 rounded-full font-bold uppercase tracking-wider" id="modalAppCat">التصنيف</span>
+                    <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-black/40 hover:bg-brand-primary flex items-center justify-center text-white transition-all">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-6 pt-0 -mt-8 relative z-10">
+                    <div class="flex items-end gap-4 mb-6">
+                        <div class="w-24 h-24 bg-[#1a1c29] p-2 rounded-2xl border-4 border-[#0c0b14] shadow-lg flex-shrink-0" id="modalAppIconContainer">
+                            <img id="modalAppIcon" src="" alt="App Icon" class="w-full h-full object-contain rounded-xl">
+                        </div>
+                        <div class="pb-1">
+                            <h3 id="modalAppName" class="text-xl sm:text-2xl font-bold text-white leading-tight">اسم التطبيق</h3>
+                            <div class="flex items-center gap-3 text-xs text-gray-400 mt-1.5">
+                                <span class="flex items-center gap-1 text-orange-400 font-semibold">
+                                    <i class="fas fa-star text-amber-400"></i>
+                                    <span id="modalAppRating">4.9</span>
+                                </span>
+                                <span>•</span>
+                                <span class="flex items-center gap-1"><i class="fas fa-hdd"></i> <span id="modalAppSize">-- MB</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="bg-white/[0.03] border border-white/5 p-4 rounded-xl mb-6">
+                        <h4 class="text-xs text-gray-400 mb-1.5 font-bold">وصف ومميزات التطبيق:</h4>
+                        <p id="modalAppDesc" class="text-sm text-gray-300 leading-relaxed">تفاصيل ووصف البرنامج هنا بالتفصيل...</p>
+                    </div>
+
+                    <!-- Download Options -->
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <div class="w-full sm:flex-1">
+                            <a id="modalDownloadLink" href="#" target="_blank" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary hover:to-orange-600 text-white font-bold text-center flex items-center justify-center gap-2.5 transition-all shadow-lg shadow-brand-primary/20 text-md">
+                                <i class="fas fa-cloud-arrow-down text-lg"></i>
+                                تحميل ملف APK المباشر
+                            </a>
+                        </div>
+                        
+                        <!-- TV Install Helper (QR Code generation) -->
+                        <div class="flex flex-col items-center justify-center p-3 bg-white/5 rounded-xl border border-white/5 shrink-0">
+                            <img id="qrCodeContainer" src="" alt="QR Code" class="w-24 h-24 bg-white p-1 rounded-lg">
+                            <span class="text-[10px] text-gray-400 mt-1.5"><i class="fas fa-qrcode"></i> امسح من التلفاز للتحميل</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TV Mode Virtual Controller overlay widget -->
+        <div id="tvControllerWidget" class="fixed bottom-6 right-6 z-40 bg-brand-panelBg/95 backdrop-blur-md rounded-3xl p-4 border border-white/10 shadow-2xl shadow-brand-primary/20 hidden transition-all duration-300 w-44">
+            <div class="text-center mb-3">
+                <span class="text-xs bg-indigo-600 text-white px-2.5 py-0.5 rounded-full font-bold">نشط: وضع التلفاز</span>
+                <p class="text-[10px] text-gray-400 mt-1">استخدم ريموت الشاشة أو لوحة المفاتيح</p>
+            </div>
+            
+            <!-- Virtual remote buttons grid -->
+            <div class="grid grid-cols-3 gap-2 justify-center items-center">
+                <div></div>
+                <button onclick="simulateTvKey('ArrowUp')" class="w-10 h-10 bg-white/5 hover:bg-brand-primary active:scale-95 text-white rounded-lg flex items-center justify-center border border-white/10 transition-all"><i class="fas fa-chevron-up"></i></button>
+                <div></div>
+                
+                <button onclick="simulateTvKey('ArrowLeft')" class="w-10 h-10 bg-white/5 hover:bg-brand-primary active:scale-95 text-white rounded-lg flex items-center justify-center border border-white/10 transition-all"><i class="fas fa-chevron-right"></i></button>
+                <button onclick="simulateTvKey('Enter')" class="w-10 h-10 bg-brand-primary active:scale-90 text-white rounded-lg flex items-center justify-center font-bold border border-brand-primary shadow-lg shadow-brand-primary/20 transition-all text-xs">OK</button>
+                <button onclick="simulateTvKey('ArrowRight')" class="w-10 h-10 bg-white/5 hover:bg-brand-primary active:scale-95 text-white rounded-lg flex items-center justify-center border border-white/10 transition-all"><i class="fas fa-chevron-left"></i></button>
+                
+                <div></div>
+                <button onclick="simulateTvKey('ArrowDown')" class="w-10 h-10 bg-white/5 hover:bg-brand-primary active:scale-95 text-white rounded-lg flex items-center justify-center border border-white/10 transition-all"><i class="fas fa-chevron-down"></i></button>
+                <div></div>
+            </div>
+
+            <!-- Close Controller Simulation -->
+            <button onclick="disableTvMode()" class="w-full mt-3 py-1.5 text-xs text-center bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded-lg border border-red-500/20 transition-all">
+                إغلاق وضع التلفاز
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-20 border-t border-white/5 pt-8 text-center text-gray-500 text-xs sm:text-sm">
+            <p class="font-medium">© 2026 AMINE MK Store. جميع الحقوق محفوظة.</p>
+            <p class="mt-1 text-[11px] text-gray-600">مصمم بجودة فائقة لتشغيل سلس على شاشات التلفزيون والأجهزة المحمولة.</p>
+        </footer>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // Raw App Dataset
+        const apps = [
+        
+            { id: 1, name: "القرآن لا إعلانات", desc: "أفضل تطبيق قرآن كريم متكامل للشاشات واللوحات الذكية بدون أي إعلانات.", cat: "القرآن", size: "32.1 MB", rating: "4.9", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/0.png", downloadUrl: "apk/Qran.apk" },
+            
+            { id: 28, name: "LABIL TV PRO", desc: "بث مباشر قنوات حصرية. تحتاج تثبيت مشغل Wuffy Player للتشغيل السلس.", cat: "بث مباشر", size: "31 MB", rating: "4.8", icon: "https://aminemk640.github.io/Labil-Tv-app/LABIL.TV.PRO/logo.png", downloadUrl: "https://www.appcreator24.com/app3917013-yrtpbn" },
+            
+            { id: 6, name: "Wuffy Player", desc: "مشغل وسائط رائع ومتكامل لقراءة محتويات البث المباشر والملفات الصوتية.", cat: "مشغل", size: "11.8 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/72f/3ee/72f3ee5a0b995f273e66789c531d570b420db5d80d1969428f9fe733bf230e84:100", downloadUrl: "apk/Wuffy. Player_3.5.7 .apk" },
+            
+            { id: 9, name: "دراما لايف مهكر", desc: "Drama Live بنسخة بريميوم مهكرة 2026 جاهزة للعمل دون الحاجة لأكواد تفعيل.", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://dramalivedl.com/wp-content/uploads/2025/11/drama-live-2.webp", downloadUrl: "https://www.mediafire.com/file/bl9ooxtouh5wlpe/Drama_Live_Premium_.apk/file" },
+            
+                      { id: 9, name: "ماجد سبورت VIP", desc: "تابع أقوى المباريات مع تطبيق شاهد المباريات مباشرة بأعلى جودة وبدون تقطيع", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/majid%20s.jpg", downloadUrl: "https://www.mediafire.com/file/of0qocwwtyfbiqk/MajedSport_VIP.apk/file" },
+            
+            
+           { id: 7, name: "Yacine TV مهكر", 
+            desc: "تطبيق Yacine TV مدمج به المشغل داخلياً.", cat: "بث مباشر",
+            size: "10 MB", rating: "4.8", icon: "https://yacine-tv.ma/wp-content/uploads/2025/10/Yacine-1.png", downloadUrl: "https://www.mediafire.com/file/nh1kw8om01udn5y/Yacine_TV_v3.1xP.apk/file" },
+            
+            { id: 8, name: "ياسين تيفي الأسود", desc: "Yacine TV Black Edition إصدار أسود رياضي أنيق مدمج به المشغل داخلياً.", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/yt.jfif", downloadUrl: "https://www.mediafire.com/file/1tvx9sceporbn1h/Yacine-TV-Black-v3-1-yacinetv-black-com.apk/file" },  
+            
+            { id: 10, name: "Drama Live الرسمي", desc: "تطبيق البث التلفزيوني الشهير دراما لايف. كود التفعيل النشط: fgcode.org/232425", cat: "بث مباشر", size: "22.1 MB", rating: "5.0", icon: "https://dramalivedl.com/wp-content/uploads/2025/11/drama-live-2.webp", downloadUrl: "https://dramalivedl.com/" },
+            
+            { id: 2, name: "Yacine TV V5.5.1", desc: "النسخة الرسمية لتطبيق ياسين تيفي الرائع لمتابعة أهم المباريات والبطولات العالمية.", cat: "بث مباشر", size: "12.4 MB", rating: "4.9", icon: "https://yacine-tv.ma/wp-content/uploads/2025/10/Yacine-1.png", downloadUrl: "https://yacine-tv.ma/download-yassin-tv/" },
+            
+            { id: 3, name: "YTV Player Pro", desc: "المشغل الرسمي والضروري لتشغيل قنوات ياسين تيفي على الشاشات والهواتف الذكية.", cat: "مشغل", size: "12.4 MB", rating: "4.9", icon: "https://raw.githubusercontent.com/aminemk640/tvapp/refs/heads/main/STORE/logo/2.png", downloadUrl: "apk/YTVPlayer_12.0.apk" },
+            
+           
+            
+            { id: 11, name: "General TV Pro", desc: "تطبيق بث قنوات مشفرة ومفتوحة. كود التفعيل المجاني المفتوح: 000", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://general-tv.com/wp-content/uploads/2025/10/general-tv-slide.png", downloadUrl: "https://genral-tv.com/" },
+            
+
+            
+            { id: 29, name: "عالم الدراما", desc: "مكتبة هائلة من المسلسلات العربية والعالمية والتركية المترجمة. يحتاج مشغل DWPlayer.", cat: "مسلسلات", size: "31 MB", rating: "4.8", icon: "https://dramaworld.aflamilive.com/dist/images/dw.png", downloadUrl: "https://dramaworld.aflamilive.com/" },
+            
+            { id: 30, name: "DWPlayer عالم الدراما", desc: "المشغل الرسمي والوسيط لتطبيق عالم الدراما لمشاهدة سريعة دون تقطيع.", cat: "مشغل", size: "11.8 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/e03/ae9/e03ae969c9fe126734cb7b4f28db462423873305090567bfbdf16eac9a2d6a43:100", downloadUrl: "https://www.mediafire.com/file/8a4opxfjyya5idm/DWPlayer_V1.4.apk/file" },
+            
+            
+            { id: 22, name: "AYA TV v3.15 مهكر", desc: "تطبيق البث الحي للبطولات العالمية بدون الحاجة إلى أكواد تفعيل أو برامج مشغلة.", cat: "بث مباشر", size: "10 MB", rating: "4.8", icon: "https://snapoid.net/wp-content/uploads/Aya-Tv-logo-180x180.webp", downloadUrl: "https://www.mediafire.com/file/w75e1w16eegi85w/AYA_TV_v3.14-Fix_AdFree_NoPlayer.apk/file" },
+         
+ 
+            
+
+            { id: 4, name: "YTV مهكر", desc: "مشغل YTV Pro Player بدون إعلانات نهائياً لمشاهدة بدون تشتيت.", cat: "مشغل", size: "10 MB", rating: "4.8", icon: "https://snapoid.net/wp-content/uploads/ytv-player-pro-logo-180x180.webp", downloadUrl: "https://www.mediafire.com/file/0z0u3j9zydusd43/YTV_PRO_AdFree.apk/file" },
+            
+            
+          
+            { id: 14, name: "Downloader BY AFTV", desc: "الأداة الأولى لتحميل التطبيقات والملفات من الويب عبر الروابط مباشرة على الشاشة.", cat: "أدوات", size: "4.2 MB", rating: "4.9", icon: "https://img.utdstc.com/icon/b64/9e1/b649e19ef06377e3d4ef221a1505267c85711a277c59ccabb8951ceef7fc6618:100", downloadUrl: "https://www.mediafire.com/file/533gxlnyq8hkmza/downloader.apk/file" },
+            
+            { id: 15, name: " BrowseHere tv", desc: "متصفح إنترنت آمن وخفيف صمم خصيصاً للتنقل المريح بواسطة أجهزة ريموت التلفاز.", cat: "متصفح", size: "10.8 MB", rating: "4.6", icon: "https://browsehere.net/images/logo-CtKAJcBM_Z1WlRKG.webp", downloadUrl: "https://browsehere.net/ar/" },
+            
+            { id: 16, name: "Uptodown TV Store", desc: "متجر التطبيقات والبرامج الشهير لتنزيل وتحديث حزم الأندرويد والشاشات.", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://img.utdstc.com/icon/f66/dd0/f66dd06c25088f96b64eb440bcc90a2994cc645680cb27840b30fbf996902804:100", downloadUrl: "https://uptodown-android.ar.uptodown.com/android" },
+            
+            { id: 17, name: "Aptoide TV", desc: "المتجر البديل والشهير على الشاشات الذكية لتوفير ملايين التطبيقات.", cat: "متجر", size: "12.45 MB", rating: "4.7", icon: "https://tv.aptoide.com/img/aptoidetv-logo.svg", downloadUrl: "https://tv.aptoide.com/" },
+            
+            
+            { id: 18, name: "Send Files To TV", desc: "طريقة سهلة وبسيطة لنقل جميع الأفلام والملفات من هاتفك إلى تلفازك لاسلكياً.", cat: "أدوات", size: "12.88 MB", rating: "4.8", icon: "https://img.utdstc.com/icon/f46/012/f46012d81274d4c315be99bf9f8b13c41645d830f3c1856136da573f3b5f2808:100", downloadUrl: "https://pool.apk.aptoide.com/aptoide-web/cm-aptoide-pt-12060-71289868-2725e9ae81839a4ae69f8f362fc4d7e1.apk?apk_name=send-files-to-tv" },
+      
+        ];
+
+        // State Elements
+        let selectedCategory = 'All';
+        let tvModeActive = false;
+        let tvFocusedIndex = -1;
+        let currentFilteredApps = [...apps];
+
+        // DOM elements
+        const appsGrid = document.getElementById('appsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const resultsCount = document.getElementById('resultsCount');
+        const resetSearchBtn = document.getElementById('resetSearchBtn');
+        const totalAppsCount = document.getElementById('totalAppsCount');
+        const categoriesBar = document.getElementById('categoriesBar');
+        
+        // Modal elements
+        const appModal = document.getElementById('appModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalAppIcon = document.getElementById('modalAppIcon');
+        const modalAppName = document.getElementById('modalAppName');
+        const modalAppCat = document.getElementById('modalAppCat');
+        const modalAppRating = document.getElementById('modalAppRating');
+        const modalAppSize = document.getElementById('modalAppSize');
+        const modalAppDesc = document.getElementById('modalAppDesc');
+        const modalDownloadLink = document.getElementById('modalDownloadLink');
+        const qrCodeContainer = document.getElementById('qrCodeContainer');
+
+        // TV Controller Widget Elements
+        const toggleTvModeBtn = document.getElementById('toggleTvModeBtn');
+        const tvControllerWidget = document.getElementById('tvControllerWidget');
+
+        // Extract and Build Categories Dynamic Bar
+        function buildCategories() {
+            const categories = ['All', ...new Set(apps.map(a => a.cat))];
+            categoriesBar.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const button = document.createElement('button');
+                const arabicLabel = cat === 'All' ? 'الكل' : cat;
+                const count = cat === 'All' ? apps.length : apps.filter(a => a.cat === cat).length;
+                
+                button.className = `category-btn whitespace-nowrap px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm border transition-all duration-300 flex items-center gap-2 ${
+                    selectedCategory === cat 
+                        ? 'bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/20' 
+                        : 'bg-white/[0.03] border-white/5 hover:border-brand-primary/40 text-gray-400 hover:text-white'
+                }`;
+                button.innerHTML = `
+                    <span>${arabicLabel}</span>
+                    <span class="px-1.5 py-0.5 rounded-md bg-white/10 text-[10px] text-gray-300">${count}</span>
+                `;
+                button.onclick = () => {
+                    selectedCategory = cat;
+                    buildCategories();
+                    filterApps();
+                };
+                categoriesBar.appendChild(button);
+            });
         }
-    };
 
-    searchInput.oninput = (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = apps.filter(a => a.name.toLowerCase().includes(term) || a.cat.toLowerCase().includes(term));
-        backBtn.style.display = term.length > 0 ? 'block' : 'none';
-        renderApps(filtered);
-    };
+        // Render Cards inside Grid
+        function renderApps(dataset) {
+            appsGrid.innerHTML = '';
+            
+            if (dataset.length === 0) {
+                appsGrid.innerHTML = `
+                    <div class="col-span-full text-center py-20 px-6 glass-panel rounded-2xl border border-white/5">
+                        <div class="w-20 h-20 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-search-minus text-brand-primary text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">لم نجد التطبيق المطللوب!</h3>
+                        <p class="text-gray-400 text-sm max-w-sm mx-auto">تأكد من كتابة أحرف صحيحة أو تصفح التصنيفات الأخرى المتاحة.</p>
+                        <button onclick="clearSearch()" class="mt-4 px-5 py-2 bg-brand-primary rounded-xl text-xs font-semibold hover:bg-brand-primary/90 transition-all">إعادة تهيئة المتجر</button>
+                    </div>
+                `;
+                resultsCount.innerHTML = `<span class="text-red-500 font-bold"><i class="fas fa-circle-exclamation"></i> عذراً، لا تتوفر نتائج بحث مطابقة.</span>`;
+                resetSearchBtn.classList.remove('hidden');
+                return;
+            }
 
-    function resetSearch() {
-        searchInput.value = '';
-        backBtn.style.display = 'none';
-        renderApps(apps);
-        searchBox.classList.remove('active');
-        searchToggleIcon.classList.replace('fa-times', 'fa-search');
-    }
+            dataset.forEach((app, index) => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-3xl p-5 flex flex-col justify-between cursor-pointer focus:outline-none relative group';
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('data-app-id', app.id);
+                card.setAttribute('data-index', index);
 
-    backBtn.onclick = resetSearch;
+                // Open full info on Card click (excluding down btn)
+                card.onclick = (e) => {
+                    if (!e.target.closest('.no-card-click')) {
+                        openAppDetails(app);
+                    }
+                };
 
-    window.onload = () => {
-        setTimeout(() => renderApps(apps), 500);
-    };
-</script>
+                card.innerHTML = `
+                    <div>
+                        <!-- Header Card -->
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-16 h-16 bg-[#1a1c29]/80 p-1.5 rounded-2xl border border-white/10 shadow-inner shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                <img src="${app.icon}" alt="${app.name}" class="w-full h-full object-contain rounded-xl" onerror="this.src='https://placehold.co/100x100/232d36/ff3d00?text=${encodeURIComponent(app.name[0])}'">
+                            </div>
+                            <div class="overflow-hidden">
+                                <h3 class="text-md font-bold truncate group-hover:text-brand-primary transition-colors duration-200" title="${app.name}">${app.name}</h3>
+                                <span class="inline-block text-[10px] font-bold bg-brand-primary/10 text-orange-400 border border-brand-primary/20 px-2 py-0.5 rounded mt-1.5">${app.cat}</span>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed mb-4 min-h-[36px]">${app.desc}</p>
+                    </div>
 
+                    <!-- Footer Info -->
+                    <div class="flex justify-between items-center pt-3 border-t border-white/[0.05]">
+                        <div class="flex items-center gap-3 text-[11px] text-gray-400">
+                            <span><i class="fas fa-hdd text-gray-500"></i> ${app.size}</span>
+                            <span><i class="fas fa-star text-amber-500"></i> ${app.rating}</span>
+                        </div>
+                        <button onclick="directDownload('${app.downloadUrl}', event)" class="no-card-click bg-gradient-to-l from-brand-primary to-orange-500 hover:from-brand-hover hover:to-orange-600 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition-all shadow-md active:scale-95">
+                            <i class="fas fa-download"></i>
+                            <span>تحميل</span>
+                        </button>
+                    </div>
+                `;
+                appsGrid.appendChild(card);
+            });
+
+            resultsCount.innerHTML = `<i class="fas fa-check-circle text-emerald-500"></i> تم العثور على <span class="font-bold text-white mx-1">${dataset.length}</span> تطبيق بنجاح`;
+            
+            // Re-apply focus highlighting if TV mode was running
+            if (tvModeActive) {
+                applyTvFocus();
+            }
+        }
+
+        // Live Search & Category Filtering combined
+        function filterApps() {
+            const query = searchInput.value.trim().toLowerCase();
+            
+            currentFilteredApps = apps.filter(app => {
+                const matchesCategory = selectedCategory === 'All' || app.cat === selectedCategory;
+                const matchesSearch = app.name.toLowerCase().includes(query) || 
+                                      app.desc.toLowerCase().includes(query) || 
+                                      app.cat.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (query.length > 0 || selectedCategory !== 'All') {
+                resetSearchBtn.classList.remove('hidden');
+            } else {
+                resetSearchBtn.classList.add('hidden');
+            }
+
+            tvFocusedIndex = -1; // Reset tv control focus index
+            renderApps(currentFilteredApps);
+        }
+
+        // Search Input Event
+        searchInput.oninput = filterApps;
+
+        // Reset Store to initial state
+        function clearSearch() {
+            searchInput.value = '';
+            selectedCategory = 'All';
+            buildCategories();
+            filterApps();
+        }
+
+        resetSearchBtn.onclick = clearSearch;
+
+        // Open details modal with QR installation guide
+        function openAppDetails(app) {
+            modalAppName.innerText = app.name;
+            modalAppCat.innerText = app.cat;
+            modalAppRating.innerText = app.rating;
+            modalAppSize.innerText = app.size;
+            modalAppDesc.innerText = app.desc;
+            modalDownloadLink.href = app.downloadUrl;
+            
+            // Set dynamic icon inside modal
+            modalAppIcon.src = app.icon;
+            modalAppIcon.onerror = function() {
+                this.src = `https://placehold.co/100x100/232d36/ff3d00?text=${encodeURIComponent(app.name[0])}`;
+            };
+
+            // Setup download URL trigger tracking
+            modalDownloadLink.onclick = (e) => {
+                showToast(`جاري بدء تنزيل ${app.name}...`, 'info');
+            };
+
+            // Generate TV Direct Download QR Code
+            // Using public free QR code API with custom styling
+            const encodedUrl = encodeURIComponent(app.downloadUrl);
+            qrCodeContainer.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodedUrl}&color=12-18-28`;
+
+            // Display Modal
+            appModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Close details modal
+        function closeModal() {
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                appModal.classList.add('hidden');
+            }, 150);
+        }
+
+        // Direct Download with interactive download tracking feedback
+        function directDownload(url, event) {
+            if (event) event.stopPropagation(); // prevent card click
+            showToast('جاري تحضير ملف الـ APK بأمان...', 'info');
+            
+            const btn = event ? event.currentTarget : null;
+            let originalContent = '';
+            if (btn) {
+                originalContent = btn.innerHTML;
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+                btn.disabled = true;
+            }
+
+            setTimeout(() => {
+                window.open(url, '_blank');
+                showToast('بدأ تحميل التطبيق الآن بنجاح!', 'success');
+                if (btn) {
+                    btn.innerHTML = `<i class="fas fa-check"></i>`;
+                    btn.classList.replace('from-brand-primary', 'from-emerald-600');
+                    btn.classList.replace('to-orange-500', 'to-emerald-500');
+                    setTimeout(() => {
+                        btn.innerHTML = originalContent;
+                        btn.classList.replace('from-emerald-600', 'from-brand-primary');
+                        btn.classList.replace('to-emerald-500', 'to-orange-500');
+                        btn.disabled = false;
+                    }, 3500);
+                }
+            }, 1200);
+        }
+
+        // Share Link functionality
+        function shareStore() {
+            const shareUrl = window.location.href;
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = shareUrl;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            showToast('تم نسخ رابط متجر أحمد أمين بنجاح، شاركه مع أصدقائك!', 'success');
+        }
+
+        // Toast Messages System
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const bgClass = type === 'success' ? 'bg-emerald-600' : type === 'error' ? 'bg-red-600' : 'bg-indigo-600';
+            const iconClass = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+
+            toast.className = `${bgClass} text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-semibold transition-all duration-300 opacity-0 transform translate-y-3 max-w-sm border border-white/10`;
+            toast.innerHTML = `
+                <i class="fas ${iconClass} text-lg"></i>
+                <span>${message}</span>
+            `;
+
+            toastContainer.appendChild(toast);
+            
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-3');
+                toast.classList.add('opacity-100', 'translate-y-0');
+            }, 10);
+
+            // Close after 4.5s
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4500);
+        }
+
+        // ==========================================
+        // ANDROID TV REMOTE CONTROLLER SIMULATION
+        // ==========================================
+
+        // Toggle TV Mode Active
+        toggleTvModeBtn.onclick = () => {
+            if (tvModeActive) {
+                disableTvMode();
+            } else {
+                enableTvMode();
+            }
+        };
+
+        function enableTvMode() {
+            tvModeActive = true;
+            tvControllerWidget.classList.remove('hidden');
+            toggleTvModeBtn.classList.replace('bg-indigo-600/30', 'bg-brand-primary');
+            toggleTvModeBtn.classList.replace('border-indigo-500/30', 'border-brand-primary');
+            showToast('تم تفعيل وضع التلفاز الذكي! استخدم الأزرار الافتراضية أو لوحة المفاتيح للتنقل.', 'success');
+            
+            // Start focus on first card if none focused
+            tvFocusedIndex = 0;
+            applyTvFocus();
+        }
+
+        function disableTvMode() {
+            tvModeActive = false;
+            tvControllerWidget.classList.add('hidden');
+            toggleTvModeBtn.classList.replace('bg-brand-primary', 'bg-indigo-600/30');
+            toggleTvModeBtn.classList.replace('border-brand-primary', 'border-indigo-500/30');
+            
+            // Remove focus class from all cards
+            document.querySelectorAll('.app-card, .glass-card').forEach(card => {
+                card.classList.remove('tv-focus');
+            });
+            tvFocusedIndex = -1;
+            showToast('تم إغلاق وضع التلفاز.', 'info');
+        }
+
+        // Simulate Navigation Keys
+        function simulateTvKey(key) {
+            if (!tvModeActive) return;
+
+            const cardsCount = currentFilteredApps.length;
+            if (cardsCount === 0) return;
+
+            // Simple responsive columns count calculation
+            let cols = 3; // default lg screen
+            if (window.innerWidth < 768) {
+                cols = 1; // mobile
+            } else if (window.innerWidth < 1024) {
+                cols = 2; // tablet
+            }
+
+            if (key === 'ArrowRight') { // Since it is RTL, Right arrow moves to previous item
+                tvFocusedIndex = (tvFocusedIndex > 0) ? tvFocusedIndex - 1 : cardsCount - 1;
+            } 
+            else if (key === 'ArrowLeft') { // Left arrow moves to next item
+                tvFocusedIndex = (tvFocusedIndex < cardsCount - 1) ? tvFocusedIndex + 1 : 0;
+            } 
+            else if (key === 'ArrowUp') {
+                if (tvFocusedIndex - cols >= 0) {
+                    tvFocusedIndex -= cols;
+                } else {
+                    tvFocusedIndex = (tvFocusedIndex - cols + cardsCount) % cardsCount; // wrap
+                }
+            } 
+            else if (key === 'ArrowDown') {
+                if (tvFocusedIndex + cols < cardsCount) {
+                    tvFocusedIndex += cols;
+                } else {
+                    tvFocusedIndex = (tvFocusedIndex + cols) % cardsCount; // wrap
+                }
+            } 
+            else if (key === 'Enter') {
+                if (tvFocusedIndex !== -1) {
+                    const activeCard = document.querySelector(`[data-index="${tvFocusedIndex}"]`);
+                    if (activeCard) {
+                        const appData = currentFilteredApps[tvFocusedIndex];
+                        openAppDetails(appData);
+                    }
+                }
+                return;
+            }
+
+            applyTvFocus();
+        }
+
+        // Apply visual Focus Ring in TV Mode
+        function applyTvFocus() {
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.classList.remove('tv-focus');
+            });
+
+            if (tvFocusedIndex !== -1 && currentFilteredApps.length > 0) {
+                const activeCard = document.querySelector(`[data-index="${tvFocusedIndex}"]`);
+                if (activeCard) {
+                    activeCard.classList.add('tv-focus');
+                    activeCard.focus();
+                    
+                    // Auto scroll focused card into view smoothly
+                    activeCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }
+        }
+
+        // Listen for Keyboard Events to support real TV Remotes/Keyboards
+        document.addEventListener('keydown', (e) => {
+            if (!tvModeActive) return;
+
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape'].includes(e.key)) {
+                e.preventDefault(); // Stop webpage scrolling with arrows in active mode
+
+                if (e.key === 'Escape') {
+                    if (!appModal.classList.contains('hidden')) {
+                        closeModal();
+                    } else {
+                        disableTvMode();
+                    }
+                    return;
+                }
+
+                simulateTvKey(e.key);
+            }
+        });
+
+        // Initialize Store on Window load
+        window.onload = () => {
+            totalAppsCount.innerHTML = `<i class="fas fa-boxes-stacked"></i> الإجمالي: ${apps.length} تطبيق`;
+            buildCategories();
+            
+            // Simulate server connection delay for absolute realism
+            setTimeout(() => {
+                renderApps(apps);
+            }, 800);
+        };
+    </script>
 </body>
 </html>
